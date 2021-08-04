@@ -373,17 +373,22 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
   meta = meta.split(',').filter(function(item) {
     return GUEST.indexOf(item) > -1;
   });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
   new Valine({
     el: '#vcomments',
     verify: false,
     notify: false,
-    appId: 'HuezgksO62YQcDpb4mFTNHMn-9Nh9j0Va',
-    appKey: '9rUsIElUlkGMrYMtXb3muQ54# your leancloud application appkey',
+    appId: 'DumdnDs2wwYbUEgmpupNXEJk-MdYXbMMI',
+    appKey: 'PVRNqheXkLcupo4SohVuAXUr',
     placeholder: 'Just go go',
     avatar: 'mm',
     meta: meta,
     pageSize: '10' || 10,
-    visitor: false
+    enableQQ: 'true',
+    recordIP: 'false',
+    requiredFields: requiredFields,
+    visitor: true
   });
   </script>
 

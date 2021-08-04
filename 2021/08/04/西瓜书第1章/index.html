@@ -325,6 +325,13 @@
 
         
 
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/" class="leancloud_visitors"  data-flag-title="西瓜书第1章">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/#comments" class="article-comment-link">Comments</a></span>
         
 	
@@ -602,17 +609,22 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
   meta = meta.split(',').filter(function(item) {
     return GUEST.indexOf(item) > -1;
   });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
   new Valine({
     el: '#vcomments',
     verify: false,
     notify: false,
-    appId: 'HuezgksO62YQcDpb4mFTNHMn-9Nh9j0Va',
-    appKey: '9rUsIElUlkGMrYMtXb3muQ54# your leancloud application appkey',
+    appId: 'DumdnDs2wwYbUEgmpupNXEJk-MdYXbMMI',
+    appKey: 'PVRNqheXkLcupo4SohVuAXUr',
     placeholder: 'Just go go',
     avatar: 'mm',
     meta: meta,
     pageSize: '10' || 10,
-    visitor: false
+    enableQQ: 'true',
+    recordIP: 'false',
+    requiredFields: requiredFields,
+    visitor: true
   });
   </script>
 
