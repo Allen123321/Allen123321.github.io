@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/</loc>
+    
+    <lastmod>2021-08-04</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/2021/07/29/ML-xgs-svm/</loc>
     
-    <lastmod>2021-07-30</lastmod>
+    <lastmod>2021-08-03</lastmod>
     
   </url>
   
@@ -32,15 +39,15 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2021-07-30</lastmod>
+    <lastmod>2021-08-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>http://example.com/tags/SVM/</loc>
-    <lastmod>2021-07-30</lastmod>
+    <loc>http://example.com/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/</loc>
+    <lastmod>2021-08-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -49,7 +56,7 @@
   
   <url>
     <loc>http://example.com/categories/Machine-learning/</loc>
-    <lastmod>2021-07-30</lastmod>
+    <lastmod>2021-08-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
