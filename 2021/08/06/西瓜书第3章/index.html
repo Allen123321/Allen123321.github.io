@@ -204,7 +204,7 @@
   <div class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -214,7 +214,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" rel="tag">西瓜书</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" rel="tag">西瓜书</a><span class="tag-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -233,7 +233,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -245,6 +245,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/12/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC4%E7%AB%A0/" class="title">西瓜书第4章</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-12T03:05:28.000Z" itemprop="datePublished">2021-08-12</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -301,21 +316,6 @@
               </p>
               <p class="item-date">
                 <time datetime="2021-07-29T02:06:02.000Z" itemprop="datePublished">2021-07-29</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2021/07/29/hello-world/" class="title">Hello World</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-07-29T01:09:06.613Z" itemprop="datePublished">2021-07-29</time>
               </p>
             </div>
           </li>
@@ -398,7 +398,7 @@
       
         <h1 id="第三章-线性模型"><a href="#第三章-线性模型" class="headerlink" title="第三章 线性模型"></a>第三章 线性模型</h1><h2 id="3、线性模型"><a href="#3、线性模型" class="headerlink" title="3、线性模型"></a><strong>3、线性模型</strong></h2><p>谈及线性模型，其实我们很早就已经与它打过交道，还记得高中数学必修3课本中那个顽皮的“最小二乘法”吗？这就是线性模型的经典算法之一：根据给定的（x，y）点对，求出一条与这些点拟合效果最好的直线y=ax+b，之前我们利用下面的公式便可以计算出拟合直线的系数a,b（3.1中给出了具体的计算过程），从而对于一个新的x，可以预测它所对应的y值。前面我们提到：在机器学习的术语中，当预测值为连续值时，称为“回归问题”，离散值时为“分类问题”。本篇先从线性回归任务开始，接着讨论分类和多分类问题。</p>
 <p><img src="https://i.loli.net/2018/10/17/5bc722b068e48.png" alt="1.png"></p>
-<h3 id="3-1-线性回归"><a href="#3-1-线性回归" class="headerlink" title="3.1 线性回归"></a><strong>3.1 线性回归</strong></h3><p>线性回归问题就是试图学到一个线性模型尽可能准确地预测新样本的输出值，例如：通过历年的人口数据预测2017年人口数量。在这类问题中，往往我们会先得到一系列的有标记数据，例如：2000–&gt;13亿…2016–&gt;15亿，这时输入的属性只有一个，即年份；也有输入多属性的情形，假设我们预测一个人的收入，这时输入的属性值就不止一个了，例如：（学历，年龄，性别，颜值，身高，体重）–&gt;15k。</p>
+<h3 id="3-1-线性回归"><a href="#3-1-线性回归" class="headerlink" title="3.1 线性回归"></a><strong>3.1 线性回归</strong></h3><p>线性回归问题就是试图学到一个线性模型尽可能准确地预测新样本的输出值，例如：通过历年的人口数据预测2017年人口数量。在这类问题中，往往我们会先得到一系列的有标记数据，例如：2000—&gt;13亿…2016—&gt;15亿，这时输入的属性只有一个，即年份；也有输入多属性的情形，假设我们预测一个人的收入，这时输入的属性值就不止一个了，例如：（学历，年龄，性别，颜值，身高，体重）—&gt;15k。</p>
 <p>有时这些输入的属性值并不能直接被我们的学习模型所用，需要进行相应的处理，对于连续值的属性，一般都可以被学习器所用，有时会根据具体的情形作相应的预处理，例如：归一化等；对于离散值的属性，可作下面的处理：</p>
 <ul>
 <li><p>若属性值之间存在“序关系”，则可以将其转化为连续值，例如：身高属性分为“高”“中等”“矮”，可转化为数值：{1， 0.5， 0}。</p>
@@ -455,14 +455,14 @@
 <p><img src="https://i.loli.net/2018/10/17/5bc723b8300d5.png" alt="20.png"></p>
 <h3 id="3-5-类别不平衡问题"><a href="#3-5-类别不平衡问题" class="headerlink" title="3.5 类别不平衡问题"></a><strong>3.5 类别不平衡问题</strong></h3><p>类别不平衡（class-imbanlance）就是指分类问题中不同类别的训练样本相差悬殊的情况，例如正例有900个，而反例只有100个，这个时候我们就需要进行相应的处理来平衡这个问题。常见的做法有三种：</p>
 <ol>
-<li> 在训练样本较多的类别中进行“欠采样”（undersampling）,比如从正例中采出100个，常见的算法有：EasyEnsemble。</li>
-<li> 在训练样本较少的类别中进行“过采样”（oversampling）,例如通过对反例中的数据进行插值，来产生额外的反例，常见的算法有SMOTE。</li>
-<li> 直接基于原数据集进行学习，对预测值进行“再缩放”处理。其中再缩放也是代价敏感学习的基础。<img src="https://i.loli.net/2018/10/17/5bc726fe87ae2.png" alt="21.png"></li>
+<li>在训练样本较多的类别中进行“欠采样”（undersampling）,比如从正例中采出100个，常见的算法有：EasyEnsemble。</li>
+<li>在训练样本较少的类别中进行“过采样”（oversampling）,例如通过对反例中的数据进行插值，来产生额外的反例，常见的算法有SMOTE。</li>
+<li>直接基于原数据集进行学习，对预测值进行“再缩放”处理。其中再缩放也是代价敏感学习的基础。<img src="https://i.loli.net/2018/10/17/5bc726fe87ae2.png" alt="21.png"></li>
 </ol>
 <h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><ol>
 <li><a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/blob/master/LogisticRegression/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%AE%9E%E4%BE%8B.ipynb">线性回归实例python代码实现</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/blob/master/LogisticRegression/Iris_flower_data_classification.ipynb">Iris数据集线性分类sklearn</a></li>
-<li> <a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/blob/master/LogisticRegression/boston_housing.ipynb">boston housing 数据集线性回归实例</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/blob/master/LogisticRegression/boston_housing.ipynb">boston housing 数据集线性回归实例</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/blob/master/LogisticRegression/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.ipynb">线性回归实例</a></li>
 </ol>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>《机器学习》——周志华</p>
@@ -522,6 +522,10 @@
   <div class="bar-inner">
   
   <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/08/12/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC4%E7%AB%A0/" title="西瓜书第4章"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
     
     
     <li class="next">
