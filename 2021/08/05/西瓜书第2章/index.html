@@ -21,24 +21,24 @@
   <meta name="description" content="第二章学习笔记模型的评估与选择2.1 误差与过拟合我们将学习器对样本的实际预测结果与样本的真实值之间的差异成为：误差（error）。定义：  在训练集上的误差称为训练误差（training error）或经验误差（empirical error）。 在测试集上的误差称为测试误差（test error）。 学习器在所有新样本上的误差称为泛化误差（generalization error）。  我们实">
 <meta property="og:type" content="article">
 <meta property="og:title" content="西瓜书第2章">
-<meta property="og:url" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/index.html">
+<meta property="og:url" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="第二章学习笔记模型的评估与选择2.1 误差与过拟合我们将学习器对样本的实际预测结果与样本的真实值之间的差异成为：误差（error）。定义：  在训练集上的误差称为训练误差（training error）或经验误差（empirical error）。 在测试集上的误差称为测试误差（test error）。 学习器在所有新样本上的误差称为泛化误差（generalization error）。  我们实">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/overfiting.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/k-flod.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/gongshi.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/msq.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/accanderr.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f1.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/fnfp.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/prrate.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/jiaquanpingjun.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f11.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f12.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/microf1.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/tprfpr.png">
-<meta property="og:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/rocauc.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/overfiting.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/k-flod.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/gongshi.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/msq.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/accanderr.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f1.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/fnfp.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/prrate.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/jiaquanpingjun.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f11.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f12.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/microf1.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/tprfpr.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/rocauc.png">
 <meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed6e2c57.png">
 <meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed6ed582.png">
 <meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed70bebe.png">
@@ -50,9 +50,9 @@
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="西瓜书">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/overfiting.png">
+<meta name="twitter:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/overfiting.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/index.html">
+  <link rel="canonical" href="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -501,7 +501,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/" title="西瓜书第2章" target="_blank" rel="external">http://example.com/2021/08/05/西瓜书第2章/</a>
+      <a href="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/" title="西瓜书第2章" target="_blank" rel="external">https://allen123321.github.io/2021/08/05/西瓜书第2章/</a>
     </li>
     
     <li class="post-copyright-license">

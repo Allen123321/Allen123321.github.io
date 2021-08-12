@@ -3,11 +3,11 @@
   <title>Hexo</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://allen123321.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://allen123321.github.io/"/>
   <updated>2021-08-07T03:31:17.406Z</updated>
-  <id>http://example.com/</id>
+  <id>https://allen123321.github.io/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>西瓜书第3章</title>
-    <link href="http://example.com/2021/08/06/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC3%E7%AB%A0/"/>
-    <id>http://example.com/2021/08/06/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC3%E7%AB%A0/</id>
+    <link href="https://allen123321.github.io/2021/08/06/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC3%E7%AB%A0/"/>
+    <id>https://allen123321.github.io/2021/08/06/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC3%E7%AB%A0/</id>
     <published>2021-08-06T07:51:47.000Z</published>
     <updated>2021-08-07T03:31:17.406Z</updated>
     
@@ -33,17 +33,17 @@
     
     
     
-    <category term="Machine learning" scheme="http://example.com/categories/Machine-learning/"/>
+    <category term="Machine learning" scheme="https://allen123321.github.io/categories/Machine-learning/"/>
     
     
-    <category term="西瓜书" scheme="http://example.com/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
+    <category term="西瓜书" scheme="https://allen123321.github.io/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>西瓜书第2章</title>
-    <link href="http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/"/>
-    <id>http://example.com/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/</id>
+    <link href="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/"/>
+    <id>https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/</id>
     <published>2021-08-05T02:04:47.000Z</published>
     <updated>2021-08-05T06:32:06.969Z</updated>
     
@@ -57,17 +57,17 @@
     
     
     
-    <category term="Machine learning" scheme="http://example.com/categories/Machine-learning/"/>
+    <category term="Machine learning" scheme="https://allen123321.github.io/categories/Machine-learning/"/>
     
     
-    <category term="西瓜书" scheme="http://example.com/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
+    <category term="西瓜书" scheme="https://allen123321.github.io/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>西瓜书第1章</title>
-    <link href="http://example.com/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/"/>
-    <id>http://example.com/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/</id>
+    <link href="https://allen123321.github.io/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/"/>
+    <id>https://allen123321.github.io/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/</id>
     <published>2021-08-04T00:04:25.000Z</published>
     <updated>2021-08-04T02:07:52.521Z</updated>
     
@@ -81,17 +81,17 @@
     
     
     
-    <category term="Machine learning" scheme="http://example.com/categories/Machine-learning/"/>
+    <category term="Machine learning" scheme="https://allen123321.github.io/categories/Machine-learning/"/>
     
     
-    <category term="西瓜书" scheme="http://example.com/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
+    <category term="西瓜书" scheme="https://allen123321.github.io/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>西瓜书第6章</title>
-    <link href="http://example.com/2021/07/29/ML-xgs-svm/"/>
-    <id>http://example.com/2021/07/29/ML-xgs-svm/</id>
+    <link href="https://allen123321.github.io/2021/07/29/ML-xgs-svm/"/>
+    <id>https://allen123321.github.io/2021/07/29/ML-xgs-svm/</id>
     <published>2021-07-29T02:06:02.000Z</published>
     <updated>2021-08-03T23:58:30.373Z</updated>
     
@@ -105,17 +105,17 @@
     
     
     
-    <category term="Machine learning" scheme="http://example.com/categories/Machine-learning/"/>
+    <category term="Machine learning" scheme="https://allen123321.github.io/categories/Machine-learning/"/>
     
     
-    <category term="西瓜书" scheme="http://example.com/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
+    <category term="西瓜书" scheme="https://allen123321.github.io/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2021/07/29/hello-world/"/>
-    <id>http://example.com/2021/07/29/hello-world/</id>
+    <link href="https://allen123321.github.io/2021/07/29/hello-world/"/>
+    <id>https://allen123321.github.io/2021/07/29/hello-world/</id>
     <published>2021-07-29T01:09:06.613Z</published>
     <updated>2021-07-29T01:09:06.613Z</updated>
     
