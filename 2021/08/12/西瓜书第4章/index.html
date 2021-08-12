@@ -25,14 +25,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="西瓜书第4章 决策树1. 算法原理决策树是基于树结构对问题进行决策或判定的过程。 决策过程中提出的判定问题（内部节点）是对某个属性的“测试”，每个测试的结果可以导出最终结论（叶节点）或导出进一步判定问题（下一层内部节点，其考虑范围是在上次决策结果的限定范围之内）。 算法核心：选取划分条件（划分属性）。 最终目的：样本划分越“纯”越好。 在网上看到一个例子十分有趣，放在这里正好合适。现想象一位捉急的">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://camo.githubusercontent.com/af42998129b02563a6687be4be683621e9b8111cc2fbe1bf0ae53a40417ca6d2/68747470733a2f2f692e6c6f6c692e6e65742f323031382f31302f31372f356263373238656338346137372e706e67">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/12/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC4%E7%AB%A0/tree.png">
 <meta property="og:image" content="https://allen123321.github.io/2021/08/12/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC4%E7%AB%A0/algorithm.png">
 <meta property="article:published_time" content="2021-08-12T03:05:28.000Z">
-<meta property="article:modified_time" content="2021-08-12T05:07:53.924Z">
+<meta property="article:modified_time" content="2021-08-12T05:17:11.498Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="西瓜书">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://camo.githubusercontent.com/af42998129b02563a6687be4be683621e9b8111cc2fbe1bf0ae53a40417ca6d2/68747470733a2f2f692e6c6f6c692e6e65742f323031382f31302f31372f356263373238656338346137372e706e67">
+<meta name="twitter:image" content="https://allen123321.github.io/2021/08/12/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC4%E7%AB%A0/tree.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://allen123321.github.io/2021/08/12/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC4%E7%AB%A0/index.html">
   
@@ -388,7 +388,7 @@
 <hr>
 <p>这个女孩的挑剔过程就是一个典型的决策树，即相当于通过年龄、长相、收入和是否公务员将男童鞋分为两个类别：见和不见。假设这个女孩对男人的要求是：30岁以下、长相中等以上并且是高收入者或中等以上收入的公务员，那么使用下图就能很好地表示女孩的决策逻辑（即一颗决策树）。</p>
 <hr>
-<p><img src="https://camo.githubusercontent.com/af42998129b02563a6687be4be683621e9b8111cc2fbe1bf0ae53a40417ca6d2/68747470733a2f2f692e6c6f6c692e6e65742f323031382f31302f31372f356263373238656338346137372e706e67" alt="1.png"></p>
+<img src="/2021/08/12/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC4%E7%AB%A0/tree.png" class="">
 <hr>
 <p>在上图的决策树中，决策过程的每一次判定都是对某一属性的“测试”，决策最终结论则对应最终的判定结果。一般一颗决策树包含：一个根节点、若干个内部节点和若干个叶子节点，易知：</p>
 <pre><code>* 每个非叶节点表示一个特征属性测试。
