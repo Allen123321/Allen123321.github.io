@@ -17,20 +17,26 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Hello World | Hexo</title>
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <title>李宏毅机器学习（机器学习介绍） | Hexo</title>
+  <meta name="description" content="机器学习介绍1. 人工智能、机器学习、深度学习之间的关系 人工智能是我们最终要达到的目的，为机器赋予人的智能 机器学习是我们达成目的的一种手段 深度学习是机器学习中的一种方法，它指的是涉及到深度神经网络的机器学习算法  三者的关系：如下图 2.机器学习的定义机器学习是一门人工智能的科学，该领域的主要研究对象是人工智能，特别是如何在经验学习中改善具体算法的性能。本质上就是通过程序让机器具备学习的能力">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://allen123321.github.io/2021/07/29/hello-world/index.html">
+<meta property="og:title" content="李宏毅机器学习（机器学习介绍）">
+<meta property="og:url" content="https://allen123321.github.io/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="机器学习介绍1. 人工智能、机器学习、深度学习之间的关系 人工智能是我们最终要达到的目的，为机器赋予人的智能 机器学习是我们达成目的的一种手段 深度学习是机器学习中的一种方法，它指的是涉及到深度神经网络的机器学习算法  三者的关系：如下图 2.机器学习的定义机器学习是一门人工智能的科学，该领域的主要研究对象是人工智能，特别是如何在经验学习中改善具体算法的性能。本质上就是通过程序让机器具备学习的能力">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-07-29T01:09:06.613Z">
-<meta property="article:modified_time" content="2021-08-12T03:20:48.845Z">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-1.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-20.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-21.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-49.png">
+<meta property="article:published_time" content="2021-08-16T09:08:20.000Z">
+<meta property="article:modified_time" content="2021-08-16T09:53:36.281Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="李宏毅">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-1.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://allen123321.github.io/2021/07/29/hello-world/index.html">
+  <link rel="canonical" href="https://allen123321.github.io/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -40,6 +46,8 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
   
   
   
@@ -307,16 +315,25 @@
 
   
   
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">机器学习介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.</span> <span class="toc-text">1. 人工智能、机器学习、深度学习之间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text">2.机器学习的定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-number">2.</span> <span class="toc-text">机器学习相关的技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%EF%BC%88supervised-learning%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">3.监督学习（supervised learning）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%EF%BC%88SSL%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">4.半监督学习（SSL）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0"><span class="toc-number">2.3.</span> <span class="toc-text">5. 迁移学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%EF%BC%88Unsupervised-learning-%EF%BC%8CUL%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">6. 无监督学习（Unsupervised learning ，UL）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%BB%93%E6%9E%84%E5%8C%96%E5%AD%A6%E4%B9%A0-Structured-Learning"><span class="toc-number">2.5.</span> <span class="toc-text">7. 结构化学习 Structured Learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88Reinforcement-Learning-RL%EF%BC%89"><span class="toc-number">2.6.</span> <span class="toc-text">8. 强化学习（Reinforcement Learning, RL）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E5%AD%A6%E4%B9%A0%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text">为什么我们需要学习机器学习?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">3.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
 <main class="main" role="main">
   <div class="content">
-  <article id="post-hello-world" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-李宏毅机器学习（机器学习介绍）" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      李宏毅机器学习（机器学习介绍）
     </h1>
   
 
@@ -324,54 +341,88 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/07/29/hello-world/" class="article-date">
-	  <time datetime="2021-07-29T01:09:06.613Z" itemprop="datePublished">2021-07-29</time>
+	<a href="/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/" class="article-date">
+	  <time datetime="2021-08-16T09:08:20.000Z" itemprop="datePublished">2021-08-16</time>
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Machine-learning/">Machine learning</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" rel="tag">李宏毅</a>
+  </span>
+
 
         
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2021/07/29/hello-world/" class="leancloud_visitors"  data-flag-title="Hello World">
+    	<span id="/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/" class="leancloud_visitors"  data-flag-title="李宏毅机器学习（机器学习介绍）">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/29/hello-world/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/#comments" class="article-comment-link">Comments</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 177(words)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 1.6k(words)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 1(minutes)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 5(minutes)</span>
 	
 
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="发表文章"><a href="#发表文章" class="headerlink" title="发表文章"></a>发表文章</h3><p>新建文章</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n <span class="string">&quot;我的博客&quot;</span> == hexo new <span class="string">&quot;我的博客&quot;</span></span><br></pre></td></tr></table></figure>
-<p>发表草稿</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo p == hexo publish</span><br></pre></td></tr></table></figure>
-<p>生成静态文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g == hexo generate</span><br></pre></td></tr></table></figure>
-<p>启动服务预览<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s == hexo server</span><br></pre></td></tr></table></figure></p>
-<p>部署到远程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d == hexo deploy</span><br></pre></td></tr></table></figure></p>
-<h3 id="清理缓存"><a href="#清理缓存" class="headerlink" title="清理缓存"></a>清理缓存</h3><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure></p>
-<h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>查看Hexo运行版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure></p>
+        <h2 id="机器学习介绍"><a href="#机器学习介绍" class="headerlink" title="机器学习介绍"></a>机器学习介绍</h2><h3 id="1-人工智能、机器学习、深度学习之间的关系"><a href="#1-人工智能、机器学习、深度学习之间的关系" class="headerlink" title="1. 人工智能、机器学习、深度学习之间的关系"></a>1. 人工智能、机器学习、深度学习之间的关系</h3><ul>
+<li>人工智能是我们最终要达到的目的，为机器赋予人的智能</li>
+<li>机器学习是我们达成目的的一种手段</li>
+<li>深度学习是机器学习中的一种方法，它指的是涉及到深度神经网络的机器学习算法</li>
+</ul>
+<p>三者的关系：如下图<br><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-1.png" alt="1.png"></p>
+<h3 id="2-机器学习的定义"><a href="#2-机器学习的定义" class="headerlink" title="2.机器学习的定义"></a>2.机器学习的定义</h3><p>机器学习是一门人工智能的科学，该领域的主要研究对象是人工智能，特别是如何在经验学习中改善具体算法的性能。本质上就是通过程序让机器具备学习的能力，大量数据来训练机器，最终得到一个学习后的模型。</p>
+<p>在整个machine learning framework整个过程分成了三个步骤。第一个步骤就是找一个function，第二个步骤让machine可以衡量一个function是好还是不好，第三个步骤是让machine有一个自动的方法，有一个好演算法可以挑出最好的function。<br><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-20.png" alt="2.png"></p>
+<p>机器学习其实只有三个步骤，这三个步骤简化了整个process。可以类比为：把大象放进冰箱。我们把大象塞进冰箱，其实也是三个步骤：把门打开；象塞进去；后把门关起来，然后就结束了。所以说，机器学习三个步骤，就好像是说把大象放进冰箱，也只需要三个步骤。</p>
+<h2 id="机器学习相关的技术"><a href="#机器学习相关的技术" class="headerlink" title="机器学习相关的技术"></a>机器学习相关的技术</h2><p><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-21.png" alt="3.png"></p>
+<h3 id="3-监督学习（supervised-learning）"><a href="#3-监督学习（supervised-learning）" class="headerlink" title="3.监督学习（supervised learning）"></a>3.监督学习（supervised learning）</h3><p>定义：利用一组已知类别的样本调整分类器的参数，使其达到所要求性能的过程</p>
+<p>特征：所用训练数据都是被标记过的</p>
+<h3 id="4-半监督学习（SSL）"><a href="#4-半监督学习（SSL）" class="headerlink" title="4.半监督学习（SSL）"></a>4.半监督学习（SSL）</h3><p>为了减少监督学习中给训练数据做标记的工作量，是监督学习与无监督学习相结合的一种学习方法</p>
+<p>定义：半监督学习使用大量的未标记数据，以及同时使用标记数据，来进行模式识别工作。</p>
+<p>特征：训练数据中有部分数据是有标记的，有部分数据没有标记</p>
+<h3 id="5-迁移学习"><a href="#5-迁移学习" class="headerlink" title="5. 迁移学习"></a>5. 迁移学习</h3><p>目的：将某个领域或任务上学习到的知识应用到不同的但相关的领域或问题中</p>
+<p>主要思想：利用相关领域的知识完成目标领域的任务</p>
+<p>意义：</p>
+<ul>
+<li>数据的标签很难获取</li>
+<li>从头建立模型是复杂和耗时的</li>
+</ul>
+<h3 id="6-无监督学习（Unsupervised-learning-，UL）"><a href="#6-无监督学习（Unsupervised-learning-，UL）" class="headerlink" title="6. 无监督学习（Unsupervised learning ，UL）"></a>6. 无监督学习（Unsupervised learning ，UL）</h3><p>定义：根据类别未知 (没有被标记)的训练样本解决模式识别中的各种问题</p>
+<p>特征：训练数据都是无标记的</p>
+<p>特点：</p>
+<ul>
+<li>无监督学习没有明确的目的</li>
+<li>无监督学习不需要给数据打标签</li>
+<li>无监督学习无法量化效果</li>
+</ul>
+<h3 id="7-结构化学习-Structured-Learning"><a href="#7-结构化学习-Structured-Learning" class="headerlink" title="7. 结构化学习 Structured Learning"></a>7. 结构化学习 Structured Learning</h3><p>Structured Learning不是一种具体的技术，只是一种描述问题，分析问题的方法。</p>
+<p>具体地说，Structured Learning 中让机器输出的是要有结构性的。举例来说：在语音辨识里面，机器输入是声音讯号，输出是一个句子。句子是要很多词汇拼凑完成。它是一个有结构性的object。或者是说在机器翻译里面你说一句话，你输入中文希望机器翻成英文，它的输出也是有结构性的。或者你今天要做的是人脸辨识，来给机器看张图片，它会知道说最左边是长门，中间是凉宫春日，右边是宝玖瑠。然后机器要把这些东西标出来，这也是一个structure learning问题。</p>
+<h3 id="8-强化学习（Reinforcement-Learning-RL）"><a href="#8-强化学习（Reinforcement-Learning-RL）" class="headerlink" title="8. 强化学习（Reinforcement Learning, RL）"></a>8. 强化学习（Reinforcement Learning, RL）</h3><p>定义：强化学习是智能体（Agent）以“试错”的方式进行学习，通过与环境进行交互获得的奖赏指导行为，目标是使智能体获得最大的奖赏</p>
+<p>基本模型：设置一个类似游戏的情景，算法会通过反复试验的方法来执行动作，并解决问题。对每一次试验与执行的动作，会设置对应的奖励，有时候也会有惩罚，算法最终的目标就是找到能够使奖励最大化的行动方案。</p>
+<p>若我们用Alpha Go当做例子时，supervised learning就是告诉机器：看到这个盘式你就下“5-5”，看到这个盘式你就下“3-3”</p>
+<p>reinforcement learning的意思是：机器跟对手互下，机器会不断的下棋，最后赢了，机器就会知道下的不错，但是究竟是哪里可以使它赢，它其实是不知道的。我们知道Alpha Go其实是用监督学习加上reinforcement learning去学习的。先用棋谱做监督学习，然后在做reinforcement learning，但是reinforcement learning需要一个对手，如果使用人当对手就会很让费时间，所以机器的对手是另外一个机器。<br><img src="https://datawhalechina.github.io/leeml-notes/chapter1/res/chapter1-49.png" alt="4.png"></p>
+<h2 id="为什么我们需要学习机器学习"><a href="#为什么我们需要学习机器学习" class="headerlink" title="为什么我们需要学习机器学习?"></a>为什么我们需要学习机器学习?</h2><p>机器学习为我们今天使用的许多服务提供了驱动力，如优酷，淘宝，今日头条的推荐系统; 百度和必应等搜索引擎;微博和微信这样的社交媒体; Siri和天猫精灵这样的语音助理，这样的名单还很长。</p>
+<p>所有这些例子都表明机器学习在当今数据丰富的世界中已经开始发挥关键的作用。机器可以帮助我们筛选出有助于获得重大突破的有用信息，我们已经看到这种技术在各行各业中的广泛应用，如金融，医疗，保险，制造，转型变革等。</p>
+<p>有了自动化机器学习，数据科学家可以通过自动执行重复性任务来提高工作效率。这使他们能够更多地关注解决问题本身而不是建模过程，并加快整个机器学习过程。传统机器学习整个过程中都需要人工干预，自动化机器学习流程还有助于避免人为错误。最终，自动化机器学习通过让每个人都可以使用机器学习，甚至是那些在这个领域没有专业知识的人，从而使AI变得更加普及。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li>视频链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ht411g7Ef">https://www.bilibili.com/video/BV1Ht411g7Ef</a></li>
+<li>开源笔记datawhale ：<a target="_blank" rel="noopener" href="https://github.com/datawhalechina/leeml-notes">https://github.com/datawhalechina/leeml-notes</a></li>
+</ol>
 
       
     </div>
@@ -381,7 +432,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://allen123321.github.io/2021/07/29/hello-world/" title="Hello World" target="_blank" rel="external">https://allen123321.github.io/2021/07/29/hello-world/</a>
+      <a href="https://allen123321.github.io/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/" title="李宏毅机器学习（机器学习介绍）" target="_blank" rel="external">https://allen123321.github.io/2021/08/16/李宏毅机器学习（机器学习介绍）/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -427,11 +478,20 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2021/07/29/ML-xgs-svm/" title="西瓜书第6章"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    
+    <li class="next">
+      <a href="/2021/08/14/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC5%E7%AB%A0/" title="西瓜书第5章"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">
+        <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
     
   </ul>
   
