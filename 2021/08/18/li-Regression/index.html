@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter3/res/chapter3-11.png">
 <meta property="og:image" content="https://allen123321.github.io/2021/08/18/li-Regression/regularization.png">
 <meta property="article:published_time" content="2021-08-18T02:23:26.000Z">
-<meta property="article:modified_time" content="2021-08-18T06:31:06.741Z">
+<meta property="article:modified_time" content="2021-08-18T06:41:32.207Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="李宏毅">
 <meta name="twitter:card" content="summary">
@@ -256,7 +256,7 @@
                 <a class="category-link" href="/categories/Machine-learning/">Machine learning</a>
               </p>
               <p class="item-title">
-                <a href="/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/" class="title">李宏毅机器学习（机器学习介绍）</a>
+                <a href="/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/" class="title">李宏毅机器学习--机器学习介绍</a>
               </p>
               <p class="item-date">
                 <time datetime="2021-08-16T09:08:20.000Z" itemprop="datePublished">2021-08-16</time>
@@ -324,7 +324,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">Catalogue</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9B%9E%E5%BD%92%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">1.回归的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">2.应用举例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.</span> <span class="toc-text">3.构建模型的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%AA%8C%E8%AF%81%E8%AE%AD%E7%BB%83%E5%A5%BD%E7%9A%84%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A5%BD%E5%9D%8F"><span class="toc-number">4.</span> <span class="toc-text">如何验证训练好的模型的好坏?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">过拟合问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Regularization"><span class="toc-number">6.</span> <span class="toc-text">Regularization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">7.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">参考资料</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9B%9E%E5%BD%92%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">1.回归的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">2.应用举例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.</span> <span class="toc-text">3.构建模型的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%AA%8C%E8%AF%81%E8%AE%AD%E7%BB%83%E5%A5%BD%E7%9A%84%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A5%BD%E5%9D%8F"><span class="toc-number">4.</span> <span class="toc-text">如何验证训练好的模型的好坏?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BF%87%E6%8B%9F%E5%90%88%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">4. 过拟合问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Regularization"><span class="toc-number">6.</span> <span class="toc-text">5. Regularization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Code"><span class="toc-number">7.</span> <span class="toc-text">6. Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">参考资料</span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -458,9 +458,9 @@ L(f) & = \sum_{n=1}^{10}\left ( \hat{y}^n - f(x_{cp}^n) \right )^2，将【f(x) 
 <li>红色的箭头代表等高线的法线方向</li>
 </ul>
 <h2 id="如何验证训练好的模型的好坏"><a href="#如何验证训练好的模型的好坏" class="headerlink" title="如何验证训练好的模型的好坏?"></a>如何验证训练好的模型的好坏?</h2><p>使用训练集和测试集的平均误差等来验证模型的好坏.</p>
-<h2 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h2><p>在模型上，我们还可以进一部优化，选择更复杂的模型，但是复杂的模型容易引起过拟合问题。在训练集上面表现更为优秀的模型，在测试集上效果反而变差了。（详细参考<a href="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/">西瓜书第二章</a>）</p>
+<h2 id="4-过拟合问题"><a href="#4-过拟合问题" class="headerlink" title="4. 过拟合问题"></a>4. 过拟合问题</h2><p>在模型上，我们还可以进一部优化，选择更复杂的模型，但是复杂的模型容易引起过拟合问题。在训练集上面表现更为优秀的模型，在测试集上效果反而变差了。（详细参考<a href="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/">西瓜书第二章</a>）</p>
 <p><strong>借用知乎上某用户对过拟合的一段解释：</strong><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">过拟合发生的本质原因，是由于监督学习问题的不适应：在高中数学中我们知道，从n个（线性无关）方程可以解n个变量，解n+1个变量就会解不出。在监督学习中，往往数据（对应了方程）远远少于模型空间（对应了变量）。</span><br><span class="line">因此过拟合现象的发生，可以分解成以下三点：</span><br><span class="line">1. 有限的训练数据不能完全反映出一个模型的好坏，然而我们却不得不在这有限的数据上挑选模型，因此我们完全有可能挑选到在训练数据上表现很好而在测试数据上表现很差的模型，因为我们完全无法知道模型在测试数据上的表现。</span><br><span class="line">2. 如果模型空间很大，也就是有很多很多模型可以给我们挑选，那么挑到对的模型的机会就会很小。</span><br><span class="line">3. 与此同时，如果我们要在训练数据上表现良好，最为直接的方法就是要在足够大的模型空间中挑选模型，否则如果模型空间很小，就不存在能够拟以合数据很好的模型。</span><br><span class="line"></span><br><span class="line">由以上3点可见，要拟合训练数据，就要足够大的模型空间;用了足够大的模型空间，挑选到测试性能好的模型的概率就会下降。因此，就会出现训练数据拟合越好，测试性能越差的过拟合现象。</span><br><span class="line"></span><br><span class="line">过拟合现象有多种解释，</span><br><span class="line">+ 经典的是bias-variance decomposition，</span><br><span class="line">+ PAC-learning泛化界解释，这种解释是最透彻，最fundamental的;</span><br><span class="line">+ Bayes先验解释，这种解释把正则变成先验。</span><br><span class="line">另外值得一提的是，不少人会用”模型复杂度“替代上面我讲的“模型空间”。这其实是一回事，但“模型复杂度”往往容易给人一个误解，认为是一个模型本身长得复杂。例如5次多项式就要比2次多项式复杂，这是错的。因此我更愿意用“模型空间”，强调“复杂度”是候选模型的“数量”，而不是本事的“长相”。</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>为什么正则化能够避免过拟合？：因为正则化就是控制模型空间的一种办法。<br><strong>参考西瓜书的：“正则化削减了（容易过拟合的那部分）假设空间，从而降低过拟合风险”</strong></p>
-<h2 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a>Regularization</h2><p>在损失函数中加入正则项，称之为正则化（Regularize）。</p>
+<h2 id="5-Regularization"><a href="#5-Regularization" class="headerlink" title="5. Regularization"></a>5. Regularization</h2><p>在损失函数中加入正则项，称之为正则化（Regularize）。</p>
 <p><strong>目的</strong>: 防止模型过拟合</p>
 <p><strong>原理</strong>: 在损失函数上加上某些规则（限制），缩小解空间，从而减少求出过拟合解的可能性</p>
 <img src="/2021/08/18/li-Regression/regularization.png" class="">
@@ -470,7 +470,7 @@ L(f) & = \sum_{n=1}^{10}\left ( \hat{y}^n - f(x_{cp}^n) \right )^2，将【f(x) 
 <li>b 的值接近于0 ，对曲线平滑是没有影响</li>
 </ul>
 <p>正则化有多种方式，包括L0（向量中非零元素个数），L1（向量中元素绝对值之和），L2（向量的模）。<br><strong>但是L0范数的求解是个NP完全问题。<br>而L1也能实现稀疏并且比L0有更好的优化求解特性而被广泛应用。</strong><br>L2范数指各元素平方和后开根的值，可令 $w$ 每个元素接近于0，<strong>虽然不如L1更彻底地降低模型复杂度，但是由于处处可微降低了计算难度</strong></p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><ol>
+<h2 id="6-Code"><a href="#6-Code" class="headerlink" title="6. Code"></a>6. Code</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/blob/master/LogisticRegression/Iris_flower_data_classification.ipynb">莺尾花分类</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/blob/master/LogisticRegression/Regression_Demo.ipynb">李宏毅课程回归例子</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/Allen123321/DEMO-DL/tree/master/LogisticRegression">Github相关代码，线性回归，分类，波士顿房价预测</a></li>
@@ -537,7 +537,7 @@ L(f) & = \sum_{n=1}^{10}\left ( \hat{y}^n - f(x_{cp}^n) \right )^2，将【f(x) 
     
     
     <li class="next">
-      <a href="/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/" title="李宏毅机器学习（机器学习介绍）"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/08/16/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D%EF%BC%89/" title="李宏毅机器学习--机器学习介绍"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
