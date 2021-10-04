@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://allen123321.github.io/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/setpycharm3.png">
 <meta property="og:image" content="https://allen123321.github.io/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/resultde2.png">
 <meta property="article:published_time" content="2021-10-04T16:57:48.000Z">
-<meta property="article:modified_time" content="2021-10-04T18:22:48.049Z">
+<meta property="article:modified_time" content="2021-10-04T18:27:50.444Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="PyQt5">
 <meta name="twitter:card" content="summary">
@@ -383,14 +383,14 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><ul>
-<li>Mac M1(macOS 11.5)</li>
-<li>PyCharm 2021.1.3</li>
-<li>Python3</li>
+<li><strong>Mac M1(macOS 11.5)</strong></li>
+<li><strong>PyCharm 2021.1.3</strong></li>
+<li><strong>Python3</strong></li>
 </ul>
 <h2 id="需要安装"><a href="#需要安装" class="headerlink" title="需要安装"></a>需要安装</h2><ul>
-<li>qt</li>
-<li>sip</li>
-<li>PyQt5</li>
+<li><strong>qt</strong></li>
+<li><strong>sip</strong></li>
+<li><strong>PyQt5</strong></li>
 </ul>
 <h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>网上有很多在pycharm中直接安装PyQt5的，但是并不适用于M1，在pycharm中找不到PyQt5的安装包。经过多次试错找到以下适合M1的安装方法。</p>
 <h3 id="1-使用Homebrew安装-qt"><a href="#1-使用Homebrew安装-qt" class="headerlink" title="1. 使用Homebrew安装 qt"></a>1. 使用Homebrew安装 qt</h3><p>在终端中输入：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install qt</span><br></pre></td></tr></table></figure><br>在这里brew会重新安装一个python，我这里安装的是python3.9.7版本。</p>
@@ -401,14 +401,16 @@
 <p>然后可以看到安装成功的pyqt5。</p>
 <h2 id="配置External-Tools"><a href="#配置External-Tools" class="headerlink" title="配置External Tools"></a>配置External Tools</h2><p>安装好开发工具后，我们可以在External Tools中配置些快捷工具方便我们的开发</p>
 <h3 id="首先配置QT-Designer的快速启动工具："><a href="#首先配置QT-Designer的快速启动工具：" class="headerlink" title="首先配置QT Designer的快速启动工具："></a>首先配置QT Designer的快速启动工具：</h3><p>Preferences—&gt;Tools—&gt;External Tools中新增项,点击➕号添加。<br>在终端中输入以下命令获取 Designer 地址：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew <span class="built_in">list</span> qt | grep Designer.app</span><br></pre></td></tr></table></figure><br>我的路径是/opt/homebrew/Cellar/qt/6.1.3/libexec/Designer.app, 如下图配置。<br><img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/setpycharm2.png" class=""><br>配置参数：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name:随意配置</span><br><span class="line">Program：选择Designer可执行程序的路径</span><br><span class="line">Arguments：空</span><br><span class="line">Working directory：填当前项目工作目录$ProjiectFileDir$</span><br></pre></td></tr></table></figure><br>配置成功</p>
-<p>如下所示：<br><img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/resultde.png" class=""><br><img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/resultde1.png" class=""></p>
+<p>如下所示：<br><img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/resultde.png" class=""></p>
+<img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/resultde1.png" class="">
 <h3 id="配置PyUIC5"><a href="#配置PyUIC5" class="headerlink" title="配置PyUIC5"></a>配置PyUIC5</h3><p>现在我们去找到PyUIC5并配置它</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">which pyuic5</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我的路径</span></span><br><span class="line">/opt/homebrew/<span class="built_in">bin</span>/pyuic5</span><br></pre></td></tr></table></figure>
 <p>现在copy它，重复之前的步骤添加外部工具，我的参数配置：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name:随意配置</span><br><span class="line">Program：/opt/homebrew/bin/pyuic5</span><br><span class="line">Arguments：-x $FileName$ -o $FileNameWithoutExtension$.py</span><br><span class="line">Working directory：$ProjiectFileDir$</span><br></pre></td></tr></table></figure>
 <img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/setpycharm3.png" class="">
-<p>现在就大功告成了，使用方法见下图;<br><img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/resultde2.png" class=""></p>
+<p><strong>现在就大功告成了，使用方法见下图;</strong></p>
+<img src="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/resultde2.png" class="">
 <h3 id="使用PyInstaller打包项目"><a href="#使用PyInstaller打包项目" class="headerlink" title="使用PyInstaller打包项目"></a>使用PyInstaller打包项目</h3><p>可以使用PyInstaller插件来进行打包（PyInstaller在不同系统下打包生成的都是当前系统的可执行文件，也就是说如果想要生成window可用的exe文件，可以到window环境下去打包）</p>
 <ul>
 <li><p>1 安装PyInstaller<br>在Pycharm中使用pip去安装PyInstaller</p>
