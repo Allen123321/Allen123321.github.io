@@ -6,7 +6,7 @@
   <link href="https://allen123321.github.io/atom.xml" rel="self"/>
   
   <link href="https://allen123321.github.io/"/>
-  <updated>2021-10-06T17:29:00.051Z</updated>
+  <updated>2021-10-06T18:30:58.092Z</updated>
   <id>https://allen123321.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/"/>
     <id>https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/</id>
     <published>2021-10-06T17:17:28.000Z</published>
-    <updated>2021-10-06T17:29:00.051Z</updated>
+    <updated>2021-10-06T18:30:58.092Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-什么是对偶问题？"><a href="#1-什么是对偶问题？" class="headerlink" title="1.什么是对偶问题？"></a>1.什么是对偶问题？</h2><p>在线性规划的早期发展中最重要的发现就是对偶问题，即每一个线性规划问题（称为原始问题）都有一个与它对应的对偶线性规划问题（称为对偶问题）。</p><h2 id="2-优化问题"><a href="#2-优化问题" class="headerlink" title="2.优化问题"></a>2.优化问题</h2><h3 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h3>]]></content>
+    <content type="html"><![CDATA[<h2 id="1-什么是对偶问题？"><a href="#1-什么是对偶问题？" class="headerlink" title="1.什么是对偶问题？"></a>1.什么是对偶问题？</h2><p>在线性规划的早期发展中最重要的发现就是对偶问题，即每一个线性规划问题（称为原始问题）都有一个与它对应的对偶线性规划问题（称为对偶问题）。</p><h2 id="2-优化问题"><a href="#2-优化问题" class="headerlink" title="2.优化问题"></a>2.优化问题</h2><h3 id="2-1-无约束的优化问题"><a href="#2-1-无约束的优化问题" class="headerlink" title="2.1 无约束的优化问题"></a>2.1 无约束的优化问题</h3><p>$\mathop{min}f(x)$<br>其中，$x=(x_{1},x_{2})$<br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt1.png" class=""><br>注意在图里画了等高线。此时$f(x)$ 在局部极小值点 $x^* =(x_{1}^*,x_{2}^*) $ 处的梯度必然为0，比较容易理解。这个梯度为零的条件是局部极小值点的必要条件。这样，优化问题的求解变成了对该必要条件解方程组。</p><h3 id="2-2-带等式约束的优化问题"><a href="#2-2-带等式约束的优化问题" class="headerlink" title="2.2 带等式约束的优化问题"></a>2.2 带等式约束的优化问题</h3><p>$\mathop{min}f(x)$<br>s.t.<br>$h(x)=0$</p>]]></content>
     
     
       
@@ -33,7 +33,7 @@
     
     
     
-    <category term="Machine Learning" scheme="https://allen123321.github.io/categories/Machine-Learning/"/>
+    <category term="Machine learning" scheme="https://allen123321.github.io/categories/Machine-learning/"/>
     
     
     <category term="算法" scheme="https://allen123321.github.io/tags/%E7%AE%97%E6%B3%95/"/>
