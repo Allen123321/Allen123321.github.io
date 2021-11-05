@@ -17,35 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>机器学习：拉格朗日对偶问题 | Hexo</title>
-  <meta name="description" content="1.什么是对偶问题？在线性规划的早期发展中最重要的发现就是对偶问题，即每一个线性规划问题（称为原始问题）都有一个与它对应的对偶线性规划问题（称为对偶问题）。 2.优化问题2.1 无约束的优化问题$\mathop{min}f(x)$其中，$x&#x3D;(x_{1},x_{2})$注意在图里画了等高线。此时$f(x)$ 在局部极小值点 $x^* &#x3D;(x_{1}^*,x_{2}^*) $ 处的梯度必然为0，比较">
+  <title>mysql mac M1 安装配置和简单命令 | Hexo</title>
+  <meta name="description" content="安装 1.去mysql官网上找到dmg版本下载 （下载地址），M1选择arm版本。傻瓜式安装完成, 注意安装到最后一步，设置密码; 2、点击苹果标志-&gt;系统偏好设置-&gt;找到mysql 图标-&gt;双击-&gt;点击”Start MySQL Server”-&gt;MySQL启动成功；  配置打开终端，输入mysql如果遇到zsh: command not found: mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习：拉格朗日对偶问题">
-<meta property="og:url" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="mysql mac M1 安装配置和简单命令">
+<meta property="og:url" content="https://allen123321.github.io/2021/11/05/mysql/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.什么是对偶问题？在线性规划的早期发展中最重要的发现就是对偶问题，即每一个线性规划问题（称为原始问题）都有一个与它对应的对偶线性规划问题（称为对偶问题）。 2.优化问题2.1 无约束的优化问题$\mathop{min}f(x)$其中，$x&#x3D;(x_{1},x_{2})$注意在图里画了等高线。此时$f(x)$ 在局部极小值点 $x^* &#x3D;(x_{1}^*,x_{2}^*) $ 处的梯度必然为0，比较">
+<meta property="og:description" content="安装 1.去mysql官网上找到dmg版本下载 （下载地址），M1选择arm版本。傻瓜式安装完成, 注意安装到最后一步，设置密码; 2、点击苹果标志-&gt;系统偏好设置-&gt;找到mysql 图标-&gt;双击-&gt;点击”Start MySQL Server”-&gt;MySQL启动成功；  配置打开终端，输入mysql如果遇到zsh: command not found: mysql">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt1.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt2.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function1.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt3.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function2.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt4.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function3.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function4.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function5.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt5.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function6.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function7.png">
-<meta property="og:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function8.png">
-<meta property="article:published_time" content="2021-10-06T17:17:28.000Z">
-<meta property="article:modified_time" content="2021-10-11T09:05:18.518Z">
+<meta property="article:published_time" content="2021-11-05T18:07:22.000Z">
+<meta property="article:modified_time" content="2021-11-05T18:32:37.090Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="算法">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt1.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/index.html">
+  <link rel="canonical" href="https://allen123321.github.io/2021/11/05/mysql/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -328,21 +314,21 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">Catalogue</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1.什么是对偶问题？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">2.优化问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%97%A0%E7%BA%A6%E6%9D%9F%E7%9A%84%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 无约束的优化问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%B8%A6%E7%AD%89%E5%BC%8F%E7%BA%A6%E6%9D%9F%E7%9A%84%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 带等式约束的优化问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%B8%A6%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%BA%A6%E6%9D%9F%E7%9A%84%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 带不等式约束的优化问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">参考链接</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">命令行操作数据库</span></a></li></ol>
     </nav>
   </div>
 </aside>
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-机器学习：拉格朗日对偶问题" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-mysql" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      机器学习：拉格朗日对偶问题
+      mysql mac M1 安装配置和简单命令
     </h1>
   
 
@@ -350,20 +336,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/" class="article-date">
-	  <time datetime="2021-10-06T17:17:28.000Z" itemprop="datePublished">2021-10-06</time>
+	<a href="/2021/11/05/mysql/" class="article-date">
+	  <time datetime="2021-11-05T18:07:22.000Z" itemprop="datePublished">2021-11-05</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Machine-learning/">Machine learning</a>
+    <a class="article-category-link" href="/categories/tool/">tool</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+	<a class="article-tag-link-link" href="/tags/mysql/" rel="tag">mysql</a>
   </span>
 
 
@@ -371,38 +357,60 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/" class="leancloud_visitors"  data-flag-title="机器学习：拉格朗日对偶问题">
+    	<span id="/2021/11/05/mysql/" class="leancloud_visitors"  data-flag-title="mysql mac M1 安装配置和简单命令">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/05/mysql/#comments" class="article-comment-link">Comments</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 543(words)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 321(words)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 2(minutes)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 1(minutes)</span>
 	
 
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="1-什么是对偶问题？"><a href="#1-什么是对偶问题？" class="headerlink" title="1.什么是对偶问题？"></a>1.什么是对偶问题？</h2><p>在线性规划的早期发展中最重要的发现就是对偶问题，即每一个线性规划问题（称为原始问题）都有一个与它对应的对偶线性规划问题（称为对偶问题）。</p>
-<h2 id="2-优化问题"><a href="#2-优化问题" class="headerlink" title="2.优化问题"></a>2.优化问题</h2><h3 id="2-1-无约束的优化问题"><a href="#2-1-无约束的优化问题" class="headerlink" title="2.1 无约束的优化问题"></a>2.1 无约束的优化问题</h3><p>$\mathop{min}f(x)$<br>其中，$x=(x_{1},x_{2})$<br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt1.png" class=""><br>注意在图里画了等高线。此时$f(x)$ 在局部极小值点 $x^* =(x_{1}^*,x_{2}^*) $ 处的梯度必然为0，比较容易理解。这个梯度为零的条件是局部极小值点的必要条件。这样，优化问题的求解变成了对该必要条件解方程组。</p>
-<h3 id="2-2-带等式约束的优化问题"><a href="#2-2-带等式约束的优化问题" class="headerlink" title="2.2 带等式约束的优化问题"></a>2.2 带等式约束的优化问题</h3><p>$\mathop{min}f(x)$<br>s.t.<br>$h(x)=0$</p>
-<p>与无约束的问题不同。我们所要求的极小值点被限制在曲线$h(x) = 0$上，我们将${x|h(x)=0}$称为可行域, 解只能在这个可行域里取。如下图所示，曲线$h(x) = 0$ (黑色实曲线）经过无约束极小值点（黑点）附近。那么满足约束的极小值点应该与黑点尽可能近。我们将$f(x)$ 的等高线不断放大，直到与曲线 $h(x) = 0$ 相切，切点即为所求。相切是关键，是极小值点的必要条件。<br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt2.png" class=""><br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function1.png" class=""></p>
-<p>令其偏导为0，正好就得到拉格朗日条件。</p>
-<p>如此，带等式约束的优化问题转化为了无约束的优化问题，只需要对拉格朗日条件解方程组即可。这里λ就是拉格朗日乘子，有多少个等式约束就有多少个拉格朗日乘子。</p>
-<h3 id="2-3-带不等式约束的优化问题"><a href="#2-3-带不等式约束的优化问题" class="headerlink" title="2.3 带不等式约束的优化问题"></a>2.3 带不等式约束的优化问题</h3><p>$\mathop{min} f(x)$<br>$ s.t $<br>$h(x) \leq 0 $</p>
-<p>当只有一个不等式起作用时, 如我们把问题2里的等式约束$h(x) = 0$ 改为 $h(x) \leq 0$, 如下图所示，可行域变成了阴影部分，最小值点还是切点，情况和问题2完全一样，只需要把不等号当做等号去求解即可。<br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt3.png" class=""><br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function2.png" class=""><br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt4.png" class=""><br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function3.png" class=""><br><img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function4.png" class=""></p>
-<img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function5.png" class="">
-<img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/opt5.png" class="">
-<img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function6.png" class="">
-<img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function7.png" class="">
-<img src="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/function8.png" class="">
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/58584814">知乎</a></p>
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>1.去mysql官网上找到dmg版本下载 （<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">下载地址</a>），M1选择arm版本。傻瓜式安装完成, 注意安装到最后一步，设置密码;</li>
+<li>2、点击苹果标志-&gt;系统偏好设置-&gt;找到mysql 图标-&gt;双击-&gt;点击”Start MySQL Server”-&gt;MySQL启动成功；</li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>打开终端，输入mysql如果遇到<br>zsh: command not found: mysql   </p>
+<p>在终端执行以下命令：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#step 1 进入到用户目录</span></span><br><span class="line"></span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line"><span class="comment">#step 2 </span></span><br><span class="line"></span><br><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在该文件中添加：</span></span><br><span class="line"></span><br><span class="line">alias mysql=/usr/local/mysql/<span class="built_in">bin</span>/</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 保存退出</span></span><br><span class="line">:wq</span><br><span class="line"></span><br><span class="line"><span class="comment"># step 3 使配置文件生效：</span></span><br><span class="line"></span><br><span class="line">source ~/.bashrc</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>重启mysql 看是否生效，如果没有，按照下面步骤继续：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># step 1 在~/.bash_profile文件后面加入指令</span></span><br><span class="line"></span><br><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="comment"># 将以下指令加入文件</span></span><br><span class="line">source ~/.bashrc</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 保存退出</span></span><br><span class="line"> </span><br><span class="line">:wq</span><br><span class="line"> </span><br><span class="line"><span class="comment"># step 2 使配置文件生效</span></span><br><span class="line"> </span><br><span class="line">source ~/.bash_profile</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="命令行操作数据库"><a href="#命令行操作数据库" class="headerlink" title="命令行操作数据库"></a>命令行操作数据库</h3><ul>
+<li>1 进入数据库</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="comment">#此时输入安装时设置的密码</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>2 显示所有数据库列表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show databases;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>3 创建数据库文件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database data charset <span class="string">&#x27;utf8&#x27;</span>; </span><br></pre></td></tr></table></figure>
+<ul>
+<li>4 打开数据库</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use data;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>5 显示数据库文件中所有的表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>6 创建表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table student(<span class="built_in">id</span> <span class="built_in">int</span>,name varshar(<span class="number">20</span>));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>7 显示表结构</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; desc student;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -412,7 +420,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://allen123321.github.io/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/" title="机器学习：拉格朗日对偶问题" target="_blank" rel="external">https://allen123321.github.io/2021/10/06/机器学习：拉格朗日对偶问题/</a>
+      <a href="https://allen123321.github.io/2021/11/05/mysql/" title="mysql mac M1 安装配置和简单命令" target="_blank" rel="external">https://allen123321.github.io/2021/11/05/mysql/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -458,13 +466,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2021/11/05/mysql/" title="mysql mac M1 安装配置和简单命令"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2021/10/05/LaTex%E5%B8%B8%E7%94%A8%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%E6%95%B4%E7%90%86/" title="LaTex常用数学符号整理"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/" title="机器学习：拉格朗日对偶问题"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
