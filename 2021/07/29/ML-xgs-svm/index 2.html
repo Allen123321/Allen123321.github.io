@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>西瓜书第6章 | Hexo</title>
+  <meta name="description" content="6、支持向量机支持向量机是一种经典的二分类模型，基本模型定义为特征空间中最大间隔的线性分类器，其学习的优化目标便是间隔最大化，因此支持向量机本身可以转化为一个凸二次规划求解的问题。 6.1 函数间隔与几何间隔对于二分类学习，假设现在的数据是线性可分的，这时分类学习最基本的想法就是找到一个合适的超平面，该超平面能够将不同类别的样本分开，类似二维平面使用ax+by+c&#x3D;0来表示，超平面实际上表示的就是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西瓜书第6章">
+<meta property="og:url" content="https://allen123321.github.io/2021/07/29/ML-xgs-svm/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="6、支持向量机支持向量机是一种经典的二分类模型，基本模型定义为特征空间中最大间隔的线性分类器，其学习的优化目标便是间隔最大化，因此支持向量机本身可以转化为一个凸二次规划求解的问题。 6.1 函数间隔与几何间隔对于二分类学习，假设现在的数据是线性可分的，这时分类学习最基本的想法就是找到一个合适的超平面，该超平面能够将不同类别的样本分开，类似二维平面使用ax+by+c&#x3D;0来表示，超平面实际上表示的就是">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f6a2ec8a.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f6a06d5a.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f690a14b.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f690ac26.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f697d499.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f696fd10.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f69af163.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f697bb1d.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f6a838c4.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f6978cbb.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f9332be7.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f93321c5.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f9330967.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f9333e66.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f935ae21.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f9338a9d.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f93419ca.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f9353166.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f933c947.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc72f934303e.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730cc68b3b.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730cc1b673.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730cc49adc.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730cc173b2.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730cc05959.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730ccc468c.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730ccc541a.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730ccce68e.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730cc6c9fe.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc730cc5e5a9.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc7317aa3411.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc7317a4c96e.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc7317a6dff2.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc7317ab6646.png">
+<meta property="article:published_time" content="2021-07-29T07:06:02.000Z">
+<meta property="article:modified_time" content="2021-08-03T23:58:30.373Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="西瓜书">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2018/10/17/5bc72f6a2ec8a.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://allen123321.github.io/2021/07/29/ML-xgs-svm/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-blue" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/Allen123321" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Jiashu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">PhD</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Allen123321" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/Allenxu93060942/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100022536340286" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deep-learning/">Deep learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LaTex/" rel="tag">LaTex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyQt5/" rel="tag">PyQt5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" rel="tag">李宏毅</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" rel="tag">西瓜书</a><span class="tag-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/LaTex/" style="font-size: 13px;">LaTex</a> <a href="/tags/PyQt5/" style="font-size: 13px;">PyQt5</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" style="font-size: 13.5px;">李宏毅</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" style="font-size: 14px;">西瓜书</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/05/mysql/" class="title">mysql mac M1 安装配置和简单命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-05T18:07:22.000Z" itemprop="datePublished">2021-11-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Machine-learning/">Machine learning</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/" class="title">机器学习：拉格朗日对偶问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-06T17:17:28.000Z" itemprop="datePublished">2021-10-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/05/LaTex%E5%B8%B8%E7%94%A8%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%E6%95%B4%E7%90%86/" class="title">LaTex常用数学符号整理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-05T12:19:15.000Z" itemprop="datePublished">2021-10-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/" class="title">Python基础 | Mac M1 安装配置PyQt5</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-04T16:57:48.000Z" itemprop="datePublished">2021-10-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Deep-learning/">Deep learning</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/22/li-deeplearning/" class="title">李宏毅深度学习--深度学习和反向传播</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-22T16:15:15.000Z" itemprop="datePublished">2021-08-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#6%E3%80%81%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-number">1.</span> <span class="toc-text">6、支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%87%BD%E6%95%B0%E9%97%B4%E9%9A%94%E4%B8%8E%E5%87%A0%E4%BD%95%E9%97%B4%E9%9A%94"><span class="toc-number">1.1.</span> <span class="toc-text">6.1 函数间隔与几何间隔</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-1-%E5%87%BD%E6%95%B0%E9%97%B4%E9%9A%94"><span class="toc-number">1.1.1.</span> <span class="toc-text">6.1.1 函数间隔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-2-%E5%87%A0%E4%BD%95%E9%97%B4%E9%9A%94"><span class="toc-number">1.1.2.</span> <span class="toc-text">6.1.2 几何间隔</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E6%9C%80%E5%A4%A7%E9%97%B4%E9%9A%94%E4%B8%8E%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F"><span class="toc-number">1.2.</span> <span class="toc-text">6.2 最大间隔与支持向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E4%BB%8E%E5%8E%9F%E5%A7%8B%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98%E5%88%B0%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">6.3 从原始优化问题到对偶问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-%E6%A0%B8%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">6.4 核函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-%E8%BD%AF%E9%97%B4%E9%9A%94%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-number">1.5.</span> <span class="toc-text">6.5 软间隔支持向量机</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-ML-xgs-svm" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      西瓜书第6章
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/07/29/ML-xgs-svm/" class="article-date">
+	  <time datetime="2021-07-29T07:06:02.000Z" itemprop="datePublished">2021-07-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Machine-learning/">Machine learning</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" rel="tag">西瓜书</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/07/29/ML-xgs-svm/" class="leancloud_visitors"  data-flag-title="西瓜书第6章">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/29/ML-xgs-svm/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 3k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 10(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="6、支持向量机"><a href="#6、支持向量机" class="headerlink" title="6、支持向量机"></a><strong>6、支持向量机</strong></h1><p>支持向量机是一种经典的二分类模型，基本模型定义为特征空间中最大间隔的线性分类器，其学习的优化目标便是间隔最大化，因此支持向量机本身可以转化为一个凸二次规划求解的问题。</p>
+<h2 id="6-1-函数间隔与几何间隔"><a href="#6-1-函数间隔与几何间隔" class="headerlink" title="6.1 函数间隔与几何间隔"></a><strong>6.1 函数间隔与几何间隔</strong></h2><p>对于二分类学习，假设现在的数据是线性可分的，这时分类学习最基本的想法就是找到一个合适的超平面，该超平面能够将不同类别的样本分开，类似二维平面使用ax+by+c=0来表示，超平面实际上表示的就是高维的平面，如下图所示：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f6a2ec8a.png" alt="1.png"></p>
+<p>对数据点进行划分时，易知：当超平面距离与它最近的数据点的间隔越大，分类的鲁棒性越好，即当新的数据点加入时，超平面对这些点的适应性最强，出错的可能性最小。因此需要让所选择的超平面能够最大化这个间隔Gap（如下图所示）， 常用的间隔定义有两种，一种称之为函数间隔，一种为几何间隔，下面将分别介绍这两种间隔，并对SVM为什么会选用几何间隔做了一些阐述。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f6a06d5a.png" alt="2.png"></p>
+<h3 id="6-1-1-函数间隔"><a href="#6-1-1-函数间隔" class="headerlink" title="6.1.1 函数间隔"></a><strong>6.1.1 函数间隔</strong></h3><p>在超平面w’x+b=0确定的情况下，|w’x<em>+b|能够代表点x</em>距离超平面的远近，易知：当w’x<em>+b&gt;0时，表示x</em>在超平面的一侧（正类，类标为1），而当w’x<em>+b&lt;0时，则表示x</em>在超平面的另外一侧（负类，类别为-1），因此（w’x<em>+b）y</em> 的正负性恰能表示数据点x<em>是否被分类正确。于是便引出了<em>*函数间隔</em></em>的定义（functional margin）:</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f690a14b.png" alt="3.png"></p>
+<p>而超平面（w,b）关于所有样本点（Xi，Yi）的函数间隔最小值则为超平面在训练数据集T上的函数间隔：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f690ac26.png" alt="4.png"></p>
+<p>可以看出：这样定义的函数间隔在处理SVM上会有问题，当超平面的两个参数w和b同比例改变时，函数间隔也会跟着改变，但是实际上超平面还是原来的超平面，并没有变化。例如：w1x1+w2x2+w3x3+b=0其实等价于2w1x1+2w2x2+2w3x3+2b=0，但计算的函数间隔却翻了一倍。从而引出了能真正度量点到超平面距离的概念—几何间隔（geometrical margin）。</p>
+<h3 id="6-1-2-几何间隔"><a href="#6-1-2-几何间隔" class="headerlink" title="6.1.2 几何间隔"></a><strong>6.1.2 几何间隔</strong></h3><p><strong>几何间隔</strong>代表的则是数据点到超平面的真实距离，对于超平面w’x+b=0，w代表的是该超平面的法向量，设x<em>为超平面外一点x在法向量w方向上的投影点，x与超平面的距离为r，则有x</em>=x-r(w/||w||)，又x<em>在超平面上，即w’x</em>+b=0，代入即可得：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f697d499.png" alt="5.png"></p>
+<p>为了得到r的绝对值，令r呈上其对应的类别y，即可得到几何间隔的定义：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f696fd10.png" alt="6.png"></p>
+<p>从上述函数间隔与几何间隔的定义可以看出：实质上函数间隔就是|w’x+b|，而几何间隔就是点到超平面的距离。</p>
+<h2 id="6-2-最大间隔与支持向量"><a href="#6-2-最大间隔与支持向量" class="headerlink" title="6.2 最大间隔与支持向量"></a><strong>6.2 最大间隔与支持向量</strong></h2><p>通过前面的分析可知：函数间隔不适合用来最大化间隔，因此这里我们要找的最大间隔指的是几何间隔，于是最大间隔分类器的目标函数定义为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f69af163.png" alt="7.png"></p>
+<p>一般地，我们令r^为1（这样做的目的是为了方便推导和目标函数的优化），从而上述目标函数转化为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f697bb1d.png" alt="8.png"></p>
+<p>对于y(w’x+b)=1的数据点，即下图中位于w’x+b=1或w’x+b=-1上的数据点，我们称之为<strong>支持向量</strong>（support vector），易知：对于所有的支持向量，它们恰好满足y<em>(w’x</em>+b)=1，而所有不是支持向量的点，有y<em>(w’x</em>+b)&gt;1。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f6a838c4.png" alt="9.png"></p>
+<h2 id="6-3-从原始优化问题到对偶问题"><a href="#6-3-从原始优化问题到对偶问题" class="headerlink" title="6.3 从原始优化问题到对偶问题"></a><strong>6.3 从原始优化问题到对偶问题</strong></h2><p>对于上述得到的目标函数，求1/||w||的最大值相当于求||w||^2的最小值，因此很容易将原来的目标函数转化为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f6978cbb.png" alt="10.png"></p>
+<p>即变为了一个带约束的凸二次规划问题，按书上所说可以使用现成的优化计算包（QP优化包）求解，但由于SVM的特殊性，一般我们将原问题变换为它的<strong>对偶问题</strong>，接着再对其对偶问题进行求解。为什么通过对偶问题进行求解，有下面两个原因：</p>
+<pre><code>* 一是因为使用对偶问题更容易求解；
+* 二是因为通过对偶问题求解出现了向量内积的形式，从而能更加自然地引出核函数。
+</code></pre><p>对偶问题，顾名思义，可以理解成优化等价的问题，更一般地，是将一个原始目标函数的最小化转化为它的对偶函数最大化的问题。对于当前的优化问题，首先我们写出它的朗格朗日函数：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f9332be7.png" alt="11.png"></p>
+<p>上式很容易验证：当其中有一个约束条件不满足时，L的最大值为 ∞（只需令其对应的α为 ∞即可）；当所有约束条件都满足时，L的最大值为1/2||w||^2（此时令所有的α为0），因此实际上原问题等价于：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f93321c5.png" alt="12.png"></p>
+<p>由于这个的求解问题不好做，因此一般我们将最小和最大的位置交换一下（需满足KKT条件） ，变成原问题的对偶问题：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f9330967.png" alt="13.png"></p>
+<p>这样就将原问题的求最小变成了对偶问题求最大（用对偶这个词还是很形象），接下来便可以先求L对w和b的极小，再求L对α的极大。</p>
+<p>（1）首先求L对w和b的极小，分别求L关于w和b的偏导，可以得出：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f9333e66.png" alt="14.png"></p>
+<p>将上述结果代入L得到：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f935ae21.png" alt="15.png"></p>
+<p>（2）接着L关于α极大求解α（通过SMO算法求解，此处不做深入）。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f9338a9d.png" alt="16.png"></p>
+<p>（3）最后便可以根据求解出的α，计算出w和b，从而得到分类超平面函数。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f93419ca.png" alt="17.png"></p>
+<p>在对新的点进行预测时，实际上就是将数据点x*代入分类函数f(x)=w’x+b中，若f(x)&gt;0，则为正类，f(x)&lt;0，则为负类，根据前面推导得出的w与b，分类函数如下所示，此时便出现了上面所提到的内积形式。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f9353166.png" alt="18.png"></p>
+<p>这里实际上只需计算新样本与支持向量的内积，因为对于非支持向量的数据点，其对应的拉格朗日乘子一定为0，根据最优化理论（K-T条件），对于不等式约束y(w’x+b)-1≥0，满足：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f933c947.png" alt="19.png">        </p>
+<h2 id="6-4-核函数"><a href="#6-4-核函数" class="headerlink" title="6.4 核函数"></a><strong>6.4 核函数</strong></h2><p>由于上述的超平面只能解决线性可分的问题，对于线性不可分的问题，例如：异或问题，我们需要使用核函数将其进行推广。一般地，解决线性不可分问题时，常常采用<strong>映射</strong>的方式，将低维原始空间映射到高维特征空间，使得数据集在高维空间中变得线性可分，从而再使用线性学习器分类。如果原始空间为有限维，即属性数有限，那么总是存在一个高维特征空间使得样本线性可分。若∅代表一个映射，则在特征空间中的划分函数变为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc72f934303e.png" alt="20.png"></p>
+<p>按照同样的方法，先写出新目标函数的拉格朗日函数，接着写出其对偶问题，求L关于w和b的极大，最后运用SOM求解α。可以得出：</p>
+<p>（1）原对偶问题变为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730cc68b3b.png" alt="21.png"></p>
+<p>（2）原分类函数变为：<br>​    <img src="https://i.loli.net/2018/10/17/5bc730cc1b673.png" alt="22.png"></p>
+<p>求解的过程中，只涉及到了高维特征空间中的内积运算，由于特征空间的维数可能会非常大，例如：若原始空间为二维，映射后的特征空间为5维，若原始空间为三维，映射后的特征空间将是19维，之后甚至可能出现无穷维，根本无法进行内积运算了，此时便引出了<strong>核函数</strong>（Kernel）的概念。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730cc49adc.png" alt="23.png"></p>
+<p>因此，核函数可以直接计算隐式映射到高维特征空间后的向量内积，而不需要显式地写出映射后的结果，它虽然完成了将特征从低维到高维的转换，但最终却是在低维空间中完成向量内积计算，与高维特征空间中的计算等效<strong>（低维计算，高维表现）</strong>，从而避免了直接在高维空间无法计算的问题。引入核函数后，原来的对偶问题与分类函数则变为：</p>
+<p>（1）对偶问题：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730cc173b2.png" alt="24.png"></p>
+<p>（2）分类函数：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730cc05959.png" alt="25.png"></p>
+<p>因此，在线性不可分问题中，核函数的选择成了支持向量机的最大变数，若选择了不合适的核函数，则意味着将样本映射到了一个不合适的特征空间，则极可能导致性能不佳。同时，核函数需要满足以下这个必要条件：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730ccc468c.png" alt="26.png"></p>
+<p>由于核函数的构造十分困难，通常我们都是从一些常用的核函数中选择，下面列出了几种常用的核函数：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730ccc541a.png" alt="27.png"></p>
+<h2 id="6-5-软间隔支持向量机"><a href="#6-5-软间隔支持向量机" class="headerlink" title="6.5 软间隔支持向量机"></a><strong>6.5 软间隔支持向量机</strong></h2><p>前面的讨论中，我们主要解决了两个问题：当数据线性可分时，直接使用最大间隔的超平面划分；当数据线性不可分时，则通过核函数将数据映射到高维特征空间，使之线性可分。然而在现实问题中，对于某些情形还是很难处理，例如数据中有<strong>噪声</strong>的情形，噪声数据（<strong>outlier</strong>）本身就偏离了正常位置，但是在前面的SVM模型中，我们要求所有的样本数据都必须满足约束，如果不要这些噪声数据还好，当加入这些outlier后导致划分超平面被挤歪了，如下图所示，对支持向量机的泛化性能造成很大的影响。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730ccce68e.png" alt="28.png"></p>
+<p>为了解决这一问题，我们需要允许某一些数据点不满足约束，即可以在一定程度上偏移超平面，同时使得不满足约束的数据点尽可能少，这便引出了<strong>“软间隔”支持向量机</strong>的概念</p>
+<pre><code>* 允许某些数据点不满足约束y(w&#39;x+b)≥1；
+* 同时又使得不满足约束的样本尽可能少。
+</code></pre><p>这样优化目标变为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730cc6c9fe.png" alt="29.png"></p>
+<p>如同阶跃函数，0/1损失函数虽然表示效果最好，但是数学性质不佳。因此常用其它函数作为“替代损失函数”。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc730cc5e5a9.png" alt="30.png"></p>
+<p>支持向量机中的损失函数为<strong>hinge损失</strong>，引入<strong>“松弛变量”</strong>，目标函数与约束条件可以写为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc7317aa3411.png" alt="31.png"></p>
+<p>其中C为一个参数，控制着目标函数与新引入正则项之间的权重，这样显然每个样本数据都有一个对应的松弛变量，用以表示该样本不满足约束的程度，将新的目标函数转化为拉格朗日函数得到：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc7317a4c96e.png" alt="32.png"></p>
+<p>按照与之前相同的方法，先让L求关于w，b以及松弛变量的极小，再使用SMO求出α，有：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc7317a6dff2.png" alt="33.png"></p>
+<p>将w代入L化简，便得到其对偶问题：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc7317ab6646.png" alt="34.png"></p>
+<p>将“软间隔”下产生的对偶问题与原对偶问题对比可以发现：新的对偶问题只是约束条件中的α多出了一个上限C，其它的完全相同，因此在引入核函数处理线性不可分问题时，便能使用与“硬间隔”支持向量机完全相同的方法。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://allen123321.github.io/2021/07/29/ML-xgs-svm/" title="西瓜书第6章" target="_blank" rel="external">https://allen123321.github.io/2021/07/29/ML-xgs-svm/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/Allen123321" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/Allen123321" target="_blank"><span class="text-dark">Jiashu</span><small class="ml-1x">PhD</small></a></h3>
+        <div>Zero To One</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/" title="西瓜书第1章"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/07/29/hello-world/" title="Hello World"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">
+        <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.jpg" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.jpg" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Allen123321" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/Allenxu93060942/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100022536340286" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'DumdnDs2wwYbUEgmpupNXEJk-MdYXbMMI',
+    appKey: 'PVRNqheXkLcupo4SohVuAXUr',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'false',
+    requiredFields: requiredFields,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

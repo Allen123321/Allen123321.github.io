@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>李宏毅机器学习--误差和梯度 | Hexo</title>
+  <meta name="description" content="1. Error的来源Error 的主要有两个来源，分别是 bias 和 variance。 1.1. bias 和 varianceError &#x3D; Bias + VarianceError反映的是整个模型的准确度，Bias反映的是模型在样本上的输出与真实值之间的误差，即模型本身的精准度，Variance反映的是模型每一次输出结果与模型输出期望之间的误差，即模型的稳定性。举一个例子，一次打靶实验，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="李宏毅机器学习--误差和梯度">
+<meta property="og:url" content="https://allen123321.github.io/2021/08/20/li-error-and-gradient/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. Error的来源Error 的主要有两个来源，分别是 bias 和 variance。 1.1. bias 和 varianceError &#x3D; Bias + VarianceError反映的是整个模型的准确度，Bias反映的是模型在样本上的输出与真实值之间的误差，即模型本身的精准度，Variance反映的是模型每一次输出结果与模型输出期望之间的误差，即模型的稳定性。举一个例子，一次打靶实验，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/20/li-error-and-gradient/bias_var.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter5/res/chapter5-12.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter5/res/chapter5-16.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter5/res/chapter5-17.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-3.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-4.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-13.png">
+<meta property="og:image" content="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-14.png">
+<meta property="article:published_time" content="2021-08-20T07:54:16.000Z">
+<meta property="article:modified_time" content="2021-08-20T10:20:38.504Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="李宏毅">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://allen123321.github.io/2021/08/20/li-error-and-gradient/bias_var.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://allen123321.github.io/2021/08/20/li-error-and-gradient/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-blue" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/Allen123321" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Jiashu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">PhD</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Allen123321" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/Allenxu93060942/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100022536340286" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deep-learning/">Deep learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LaTex/" rel="tag">LaTex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyQt5/" rel="tag">PyQt5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" rel="tag">李宏毅</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" rel="tag">西瓜书</a><span class="tag-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/LaTex/" style="font-size: 13px;">LaTex</a> <a href="/tags/PyQt5/" style="font-size: 13px;">PyQt5</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" style="font-size: 13.5px;">李宏毅</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" style="font-size: 14px;">西瓜书</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/05/mysql/" class="title">mysql mac M1 安装配置和简单命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-05T18:07:22.000Z" itemprop="datePublished">2021-11-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Machine-learning/">Machine learning</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/" class="title">机器学习：拉格朗日对偶问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-06T17:17:28.000Z" itemprop="datePublished">2021-10-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/05/LaTex%E5%B8%B8%E7%94%A8%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%E6%95%B4%E7%90%86/" class="title">LaTex常用数学符号整理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-05T12:19:15.000Z" itemprop="datePublished">2021-10-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/" class="title">Python基础 | Mac M1 安装配置PyQt5</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-04T16:57:48.000Z" itemprop="datePublished">2021-10-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Deep-learning/">Deep learning</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/22/li-deeplearning/" class="title">李宏毅深度学习--深度学习和反向传播</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-22T16:15:15.000Z" itemprop="datePublished">2021-08-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Error%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">1. Error的来源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-bias-%E5%92%8C-variance"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. bias 和 variance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%80%83%E8%99%91%E4%B8%8D%E5%90%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E5%B7%AE"><span class="toc-number">1.2.</span> <span class="toc-text">1.2. 考虑不同模型的方差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E8%80%83%E8%99%91%E4%B8%8D%E5%90%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%81%8F%E5%B7%AE"><span class="toc-number">1.3.</span> <span class="toc-text">1.3. 考虑不同模型的偏差</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E5%81%8F%E5%B7%AEv-s-%E6%96%B9%E5%B7%AE"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1. 偏差v.s.方差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E8%BF%87%E6%8B%9F%E5%90%88%EF%BC%8C%E6%AC%A0%E6%8B%9F%E5%90%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2. 过拟合，欠拟合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-%E5%81%8F%E5%B7%AE%E5%A4%A7-%E6%AC%A0%E6%8B%9F%E5%90%88"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.3.3. 偏差大-欠拟合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-%E6%96%B9%E5%B7%AE%E5%A4%A7-%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">1.3.4.</span> <span class="toc-text">1.3.4. 方差大-过拟合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="toc-number">1.4.</span> <span class="toc-text">1.4. 交叉验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-N-%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="toc-number">1.5.</span> <span class="toc-text">1.5. N-折交叉验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%EF%BC%88Gradient-Descent%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. 梯度下降（Gradient Descent）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4%E5%AD%A6%E4%B9%A0%E9%80%9F%E7%8E%87"><span class="toc-number">2.1.</span> <span class="toc-text">调整学习速率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E5%AD%A6%E4%B9%A0%E7%8E%87%EF%BC%88Adaptive-Learning-Rate%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">自适应学习率（Adaptive Learning Rate）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adagrad-%E7%AE%97%E6%B3%95"><span class="toc-number">2.3.</span> <span class="toc-text">Adagrad 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Adagrad-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.3.1.</span> <span class="toc-text">Adagrad 是什么？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">随机梯度下降法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feature-Scaling-%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE"><span class="toc-number">2.5.</span> <span class="toc-text">Feature Scaling 特征缩放</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83-Code"><span class="toc-number">3.</span> <span class="toc-text">参考 Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-li-error-and-gradient" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      李宏毅机器学习--误差和梯度
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/08/20/li-error-and-gradient/" class="article-date">
+	  <time datetime="2021-08-20T07:54:16.000Z" itemprop="datePublished">2021-08-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Machine-learning/">Machine learning</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" rel="tag">李宏毅</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/08/20/li-error-and-gradient/" class="leancloud_visitors"  data-flag-title="李宏毅机器学习--误差和梯度">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/08/20/li-error-and-gradient/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 2.6k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 9(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="1-Error的来源"><a href="#1-Error的来源" class="headerlink" title="1. Error的来源"></a>1. Error的来源</h2><p>Error 的主要有两个来源，分别是 bias 和 variance。</p>
+<h3 id="1-1-bias-和-variance"><a href="#1-1-bias-和-variance" class="headerlink" title="1.1. bias 和 variance"></a>1.1. bias 和 variance</h3><p>Error = Bias + Variance<br>Error反映的是整个模型的准确度，Bias反映的是模型在样本上的输出与真实值之间的误差，即模型本身的精准度，Variance反映的是模型每一次输出结果与模型输出期望之间的误差，即模型的稳定性。<br>举一个例子，一次打靶实验，目标是为了打到10环，但是实际上只打到了7环，那么这里面的Error就是3。具体分析打到7环的原因，可能有两方面：一是瞄准出了问题，比如实际上射击瞄准的是9环而不是10环；二是枪本身的稳定性有问题，虽然瞄准的是9环，但是只打到了7环。那么在上面一次射击实验中，Bias就是1,反应的是模型期望与真实目标的差距，而在这次试验中，由于Variance所带来的误差就是2，即虽然瞄准的是9环，但由于本身模型缺乏稳定性，造成了实际结果与模型期望之间的差距。<br><strong><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/27068705">知乎链接：机器学习中的Bias(偏差)，Error(误差)，和Variance(方差)有什么区别和联系？</a></strong></p>
+<img src="/2021/08/20/li-error-and-gradient/bias_var.png" class="">
+<p>在一个实际系统中，Bias与Variance往往是不能兼得的。如果要降低模型的Bias，就一定程度上会提高模型的Variance，反之亦然。造成这种现象的根本原因是，我们总是希望试图用有限训练样本去估计无限的真实数据。当我们更加相信这些数据的真实性，而忽视对模型的先验知识，就会尽量保证模型在训练样本上的准确度，这样可以减少模型的Bias。但是，这样学习到的模型，很可能会失去一定的泛化能力，从而造成过拟合，降低模型在真实数据上的表现，增加模型的不确定性。相反，如果更加相信我们对于模型的先验知识，在学习模型的过程中对模型增加更多的限制，就可以降低模型的variance，提高模型的稳定性，但也会使模型的Bias增大。Bias与Variance两者之间的trade-off是机器学习的基本主题之一。</p>
+<h3 id="1-2-考虑不同模型的方差"><a href="#1-2-考虑不同模型的方差" class="headerlink" title="1.2. 考虑不同模型的方差"></a>1.2. 考虑不同模型的方差</h3><p>用比较简单的模型，方差是比较小的（就像射击的时候每次的时候，每次射击的设置都集中在一个比较小的区域内）。如果用了复杂的模型，方差就很大，散布比较开。</p>
+<p>这也是因为简单的模型受到不同训练集的影响是比较小的。</p>
+<h3 id="1-3-考虑不同模型的偏差"><a href="#1-3-考虑不同模型的偏差" class="headerlink" title="1.3. 考虑不同模型的偏差"></a>1.3. 考虑不同模型的偏差</h3><p>简单模型的偏差比较大，variance比较小。而复杂的模型，偏差比较小，variance比较大。</p>
+<p>直观的解释：简单的模型函数集的space比较小，所以可能space里面就没有包含靶心，肯定射不中。而复杂的模型函数集的space比较大，可能就包含的靶心，只是没有办法找到确切的靶心在哪，但足够多的，就可能得到真正的 $\bar{f}$。</p>
+<h4 id="1-3-1-偏差v-s-方差"><a href="#1-3-1-偏差v-s-方差" class="headerlink" title="1.3.1. 偏差v.s.方差"></a>1.3.1. 偏差v.s.方差</h4><p><img src="https://datawhalechina.github.io/leeml-notes/chapter5/res/chapter5-12.png" alt="1.png"></p>
+<p>简单模型（左边）是偏差比较大造成的误差，这种情况叫做欠拟合，而复杂模型（右边）是方差过大造成的误差，这种情况叫做过拟合。</p>
+<h4 id="1-3-2-过拟合，欠拟合"><a href="#1-3-2-过拟合，欠拟合" class="headerlink" title="1.3.2. 过拟合，欠拟合"></a>1.3.2. 过拟合，欠拟合</h4><p>如果模型没有很好的训练训练集，就是偏差过大，也就是欠拟合 如果模型很好的训练训练集，即再训练集上得到很小的错误，但在测试集上得到大的错误，这意味着模型可能是方差比较大，就是过拟合。 对于欠拟合和过拟合，是用不同的方式来处理的。</p>
+<h4 id="1-3-3-偏差大-欠拟合"><a href="#1-3-3-偏差大-欠拟合" class="headerlink" title="1.3.3. 偏差大-欠拟合"></a>1.3.3. 偏差大-欠拟合</h4><p>此时应该重新设计模型。因为之前的函数集里面可能根本没有包含$f^*$。可以：</p>
+<h4 id="1-3-4-方差大-过拟合"><a href="#1-3-4-方差大-过拟合" class="headerlink" title="1.3.4. 方差大-过拟合"></a>1.3.4. 方差大-过拟合</h4><p>简单粗暴的方法：更多的数据</p>
+<p>但是很多时候不一定能做到收集更多的data。可以针对对问题的理解对数据集做调整。比如识别手写数字的时候，偏转角度的数据集不够，那就将正常的数据集左转15度，右转15度，类似这样的处理。</p>
+<h3 id="1-4-交叉验证"><a href="#1-4-交叉验证" class="headerlink" title="1.4. 交叉验证"></a>1.4. 交叉验证</h3><p><img src="https://datawhalechina.github.io/leeml-notes/chapter5/res/chapter5-16.png" alt="3.png"></p>
+<p>图中public的测试集是已有的，private是没有的，不知道的。交叉验证 就是将训练集再分为两部分，一部分作为训练集，一部分作为验证集。用训练集训练模型，然后再验证集上比较，确实出最好的模型之后（比如模型3），再用全部的训练集训练模型3，然后再用public的测试集进行测试，此时一般得到的错误都是大一些的。</p>
+<p>上述方法可能会担心将训练集拆分的时候分的效果比较差怎么办，可以用下面的方法。</p>
+<h3 id="1-5-N-折交叉验证"><a href="#1-5-N-折交叉验证" class="headerlink" title="1.5. N-折交叉验证"></a>1.5. N-折交叉验证</h3><p>将训练集分成N份，比如分成3份。</p>
+<p><img src="https://datawhalechina.github.io/leeml-notes/chapter5/res/chapter5-17.png" alt="4.png"></p>
+<p>比如在三份中训练结果Average错误是模型1最好，再用全部训练集训练模型1。</p>
+<h2 id="2-梯度下降（Gradient-Descent）"><a href="#2-梯度下降（Gradient-Descent）" class="headerlink" title="2. 梯度下降（Gradient Descent）"></a>2. 梯度下降（Gradient Descent）</h2><h3 id="调整学习速率"><a href="#调整学习速率" class="headerlink" title="调整学习速率"></a>调整学习速率</h3><p><img src="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-3.png" alt="1.png"><br>上图左边黑色为损失函数的曲线，假设从左边最高点开始，如果学习率调整的刚刚好，比如红色的线，就能顺利找到最低点。如果学习率调整的太小，比如蓝色的线，就会走的太慢，虽然这种情况给足够多的时间也可以找到最低点，实际情况可能会等不及出结果。如果 学习率调整的有点大，比如绿色的线，就会在上面震荡，走不下去，永远无法到达最低点。还有可能非常大，比如黄色的线，直接就飞出去了，更新参数的时候只会发现损失函数越更新越大。</p>
+<p>上图右边，对学习率大小对损失函数的影响进行可视化。比如学习率太小（蓝色的线），损失函数下降的非常慢；学习率太大（绿色的线），损失函数下降很快，但马上就卡住不下降了；学习率特别大（黄色的线），损失函数就飞出去了；红色的就是差不多刚好，可以得到一个好的结果。</p>
+<h3 id="自适应学习率（Adaptive-Learning-Rate）"><a href="#自适应学习率（Adaptive-Learning-Rate）" class="headerlink" title="自适应学习率（Adaptive Learning Rate）"></a>自适应学习率（Adaptive Learning Rate）</h3><p>举一个简单的思想：随着次数的增加，通过一些因子来减少学习率</p>
+<ul>
+<li>通常刚开始，初始点会距离最低点比较远，所以使用大一点的学习率</li>
+<li><p>update好几次参数之后呢，比较靠近最低点了，此时减少学习率</p>
+</li>
+<li><p>比如 $\eta^t =\frac{\eta^t}{\sqrt{t+1}}$，$t$ 是次数。随着次数的增加，$\eta^t$ 减小</p>
+</li>
+</ul>
+<p>学习率不能是一个值通用所有特征，不同的参数需要不同的学习率</p>
+<h3 id="Adagrad-算法"><a href="#Adagrad-算法" class="headerlink" title="Adagrad 算法"></a>Adagrad 算法</h3><h4 id="Adagrad-是什么？"><a href="#Adagrad-是什么？" class="headerlink" title="Adagrad 是什么？"></a>Adagrad 是什么？</h4><p>每个参数的学习率都把它除上之前微分的均方根。解释：</p>
+<p>普通的梯度下降为：</p>
+<script type="math/tex; mode=display">w^{t+1} \leftarrow  w^t -η^tg^t \tag3</script><script type="math/tex; mode=display">\eta^t =\frac{\eta^t}{\sqrt{t+1}} \tag4</script><ul>
+<li>$w$ 是一个参数</li>
+</ul>
+<p>Adagrad 可以做的更好：</p>
+<script type="math/tex; mode=display">w^{t+1} \leftarrow  w^t -\frac{η^t}{\sigma^t}g^t \tag5</script><script type="math/tex; mode=display">g^t =\frac{\partial L(\theta^t)}{\partial w} \tag6</script><ul>
+<li>$\sigma^t$ :之前参数的所有微分的均方根，对于每个参数都是不一样的。</li>
+</ul>
+<p>参数的更新过程：<br><img src="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-4.png" alt="5.png"></p>
+<h3 id="随机梯度下降法"><a href="#随机梯度下降法" class="headerlink" title="随机梯度下降法"></a>随机梯度下降法</h3><p>之前的梯度下降：</p>
+<script type="math/tex; mode=display">L=\sum_n(\hat y^n-(b+\sum w_ix_i^n))^2 \tag8</script><script type="math/tex; mode=display">\theta^i =\theta^{i-1}- \eta\triangledown L(\theta^{i-1}) \tag9</script><p>而随机梯度下降法更快：</p>
+<p>损失函数不需要处理训练集所有的数据，选取一个例子 $x^n$</p>
+<script type="math/tex; mode=display">L=(\hat y^n-(b+\sum w_ix_i^n))^2 \tag{10}</script><script type="math/tex; mode=display">\theta^i =\theta^{i-1}- \eta\triangledown L^n(\theta^{i-1}) \tag{11}</script><p>此时不需要像之前那样对所有的数据进行处理，只需要计算某一个例子的损失函数$L_n$，就可以快速update 梯度。</p>
+<h3 id="Feature-Scaling-特征缩放"><a href="#Feature-Scaling-特征缩放" class="headerlink" title="Feature Scaling 特征缩放"></a>Feature Scaling 特征缩放</h3><p>比如有个函数：</p>
+<script type="math/tex; mode=display">y=b+w_1x_1+w_2x_2 \tag{12}</script><p>两个输入的分布的范围很不一样，建议把他们的范围缩放，使得不同输入的范围是一样的。</p>
+<p><img src="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-13.png" alt=""></p>
+<p><strong>为什么要这样做？</strong><br><img src="https://datawhalechina.github.io/leeml-notes/chapter6/res/chapter6-14.png" alt=""><br>上图左边是 $x_1$ 的scale比 $x_2$ 要小很多，所以当 $w_1$ 和 $w_2$ 做同样的变化时，$w_1$ 对 $y$ 的变化影响是比较小的，$x_2$ 对 $y$ 的变化影响是比较大的。</p>
+<p>坐标系中是两个参数的error surface（现在考虑左边蓝色），因为 $w_1$ 对 $y$ 的变化影响比较小，所以 $w_1$ 对损失函数的影响比较小，$w_1$ 对损失函数有比较小的微分，所以 $w_1$ 方向上是比较平滑的。同理 $x_2$ 对 $y$ 的影响比较大，所以 $x_2$ 对损失函数的影响比较大，所以在 $x_2$ 方向有比较尖的峡谷。</p>
+<p>上图右边是两个参数scaling比较接近，右边的绿色图就比较接近圆形。</p>
+<p>对于左边的情况，上面讲过这种狭长的情形不过不用Adagrad的话是比较难处理的，两个方向上需要不同的学习率，同一组学习率会搞不定它。而右边情形更新参数就会变得比较容易。左边的梯度下降并不是向着最低点方向走的，而是顺着等高线切线法线方向走的。但绿色就可以向着圆心（最低点）走，这样做参数更新也是比较有效率。</p>
+<p>缩放的方法非常多，如：</p>
+<ul>
+<li>min-max标准化（min-max normalization）</li>
+<li>log函数转换</li>
+<li>atan函数转换</li>
+<li>z-score标准化—&gt;零均值规范化（zero-mena normalization，此方法比较常用）</li>
+<li>模糊量化法。</li>
+</ul>
+<h2 id="参考-Code"><a href="#参考-Code" class="headerlink" title="参考 Code"></a>参考 Code</h2><p><a target="_blank" rel="noopener" href="https://github.com/datawhalechina/leeml-notes/tree/master/docs/Homework/HW_1">https://github.com/datawhalechina/leeml-notes/tree/master/docs/Homework/HW_1</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://datawhalechina.github.io/leeml-notes/">datawhale-李宏毅学习笔记</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av59538266?p=4&amp;spm_id_from=pageDriver">李宏毅机器学习视频链接</a></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://allen123321.github.io/2021/08/20/li-error-and-gradient/" title="李宏毅机器学习--误差和梯度" target="_blank" rel="external">https://allen123321.github.io/2021/08/20/li-error-and-gradient/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/Allen123321" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/Allen123321" target="_blank"><span class="text-dark">Jiashu</span><small class="ml-1x">PhD</small></a></h3>
+        <div>Zero To One</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/08/22/li-deeplearning/" title="李宏毅深度学习--深度学习和反向传播"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/08/18/li-Regression/" title="李宏毅机器学习--回归"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">
+        <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.jpg" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.jpg" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Allen123321" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/Allenxu93060942/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100022536340286" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'DumdnDs2wwYbUEgmpupNXEJk-MdYXbMMI',
+    appKey: 'PVRNqheXkLcupo4SohVuAXUr',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'false',
+    requiredFields: requiredFields,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
