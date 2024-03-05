@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>西瓜书第2章 | Hexo</title>
+  <meta name="description" content="第二章学习笔记模型的评估与选择2.1 误差与过拟合我们将学习器对样本的实际预测结果与样本的真实值之间的差异成为：误差（error）。定义：  在训练集上的误差称为训练误差（training error）或经验误差（empirical error）。 在测试集上的误差称为测试误差（test error）。 学习器在所有新样本上的误差称为泛化误差（generalization error）。  我们实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西瓜书第2章">
+<meta property="og:url" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第二章学习笔记模型的评估与选择2.1 误差与过拟合我们将学习器对样本的实际预测结果与样本的真实值之间的差异成为：误差（error）。定义：  在训练集上的误差称为训练误差（training error）或经验误差（empirical error）。 在测试集上的误差称为测试误差（test error）。 学习器在所有新样本上的误差称为泛化误差（generalization error）。  我们实">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/overfiting.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/k-flod.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/gongshi.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/msq.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/accanderr.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f1.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/fnfp.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/prrate.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/jiaquanpingjun.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f11.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f12.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/microf1.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/tprfpr.png">
+<meta property="og:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/rocauc.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed6e2c57.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed6ed582.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed70bebe.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed6e952e.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed6eee7b.png">
+<meta property="og:image" content="https://i.loli.net/2018/10/17/5bc71ed716e0d.png">
+<meta property="article:published_time" content="2021-08-05T07:04:47.000Z">
+<meta property="article:modified_time" content="2021-08-05T06:32:06.969Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="西瓜书">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/overfiting.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-blue" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/Allen123321" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Dr.Xu</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Research assistant</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Allen123321" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/Allenxu93060942/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100022536340286" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deep-learning/">Deep learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OER/">OER</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LaTex/" rel="tag">LaTex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Open-educational-resources/" rel="tag">Open educational resources</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyQt5/" rel="tag">PyQt5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" rel="tag">李宏毅</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" rel="tag">西瓜书</a><span class="tag-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/LaTex/" style="font-size: 13px;">LaTex</a> <a href="/tags/Open-educational-resources/" style="font-size: 13px;">Open educational resources</a> <a href="/tags/PyQt5/" style="font-size: 13px;">PyQt5</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/" style="font-size: 13.5px;">李宏毅</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 13px;">算法</a> <a href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" style="font-size: 14px;">西瓜书</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OER/">OER</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3%E5%BC%80%E6%BA%90%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/" class="title">计算机相关开源学习资源</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-03-05T14:18:56.000Z" itemprop="datePublished">2024-03-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/05/mysql/" class="title">mysql mac M1 安装配置和简单命令</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-05T18:07:22.000Z" itemprop="datePublished">2021-11-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Machine-learning/">Machine learning</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98/" class="title">机器学习：拉格朗日对偶问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-06T17:17:28.000Z" itemprop="datePublished">2021-10-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/05/LaTex%E5%B8%B8%E7%94%A8%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%E6%95%B4%E7%90%86/" class="title">LaTex常用数学符号整理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-05T12:19:15.000Z" itemprop="datePublished">2021-10-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Tool/">Tool</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/04/Python%E5%9F%BA%E7%A1%80-Mac-M1-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPyQt5/" class="title">Python基础 | Mac M1 安装配置PyQt5</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-04T16:57:48.000Z" itemprop="datePublished">2021-10-04</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">第二章学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9"><span class="toc-number">1.1.</span> <span class="toc-text">模型的评估与选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%AF%AF%E5%B7%AE%E4%B8%8E%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">1.1.1.</span> <span class="toc-text">2.1 误差与过拟合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.2 评估方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E8%AE%AD%E7%BB%83%E9%9B%86%E4%B8%8E%E6%B5%8B%E8%AF%95%E9%9B%86%E7%9A%84%E5%88%92%E5%88%86%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">2.2.1 训练集与测试集的划分方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E8%B0%83%E5%8F%82"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">2.2.2 调参</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text">2.3 性能度量</span></a></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-西瓜书第2章" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      西瓜书第2章
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/" class="article-date">
+	  <time datetime="2021-08-05T07:04:47.000Z" itemprop="datePublished">2021-08-05</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Machine-learning/">Machine learning</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E8%A5%BF%E7%93%9C%E4%B9%A6/" rel="tag">西瓜书</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/" class="leancloud_visitors"  data-flag-title="西瓜书第2章">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/#comments" class="article-comment-link">Comments</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">Word Count: 4.5k(words)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">Read Count: 16(minutes)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="第二章学习笔记"><a href="#第二章学习笔记" class="headerlink" title="第二章学习笔记"></a>第二章学习笔记</h1><h2 id="模型的评估与选择"><a href="#模型的评估与选择" class="headerlink" title="模型的评估与选择"></a>模型的评估与选择</h2><h3 id="2-1-误差与过拟合"><a href="#2-1-误差与过拟合" class="headerlink" title="2.1 误差与过拟合"></a>2.1 误差与过拟合</h3><p>我们将学习器对样本的实际预测结果与样本的真实值之间的差异成为：误差（error）。定义：</p>
+<ul>
+<li>在训练集上的误差称为训练误差（training error）或经验误差（empirical error）。</li>
+<li>在测试集上的误差称为测试误差（test error）。</li>
+<li>学习器在所有新样本上的误差称为泛化误差（generalization error）。</li>
+</ul>
+<p>我们实际希望得到的是在新样本上表现得很好的学习器，即泛化误差小的学习器。因此，我们应该让学习器尽可能地从训练集中学出普适性的“一般特征”，这样在遇到新样本时才能做出正确的判别。然而，当学习器把训练集学得“太好”的时候，即把一些训练样本的自身特点当做了普遍特征；同时也有学习能力不足的情况，即训练集的基本特征都没有学习出来。我们定义：</p>
+<ul>
+<li><p>学习能力过强，以至于把训练样本所包含的不太一般的特性都学到了，称为：过拟合（overfitting）。</p>
+<ul>
+<li>学习能太差，训练样本的一般性质尚未学好，称为：欠拟合（underfitting）。</li>
+</ul>
+<p>在过拟合问题中，训练误差十分小，但测试误差教大；在欠拟合问题中，训练误差和测试误差都比较大。目前，欠拟合问题比较容易克服，例如增加迭代次数等，但过拟合问题还没有十分好的解决方案，过拟合是机器学习面临的关键障碍。</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/overfiting.png" class="" title="This is the overfiting-underfitting img">
+</li>
+</ul>
+<h3 id="2-2-评估方法"><a href="#2-2-评估方法" class="headerlink" title="2.2 评估方法"></a>2.2 评估方法</h3><p>在现实任务中，我们往往有多种算法可供选择，那么我们应该选择哪一个算法才是最适合的呢？如上所述，我们希望得到的是泛化误差小的学习器，理想的解决方案是对模型的泛化误差进行评估，然后选择泛化误差最小的那个学习器。但是，泛化误差指的是模型在所有新样本上的适用能力，我们无法直接获得泛化误差。</p>
+<p>因此，通常我们采用一个“测试集”来测试学习器对新样本的判别能力，然后以“测试集”上的“测试误差”作为“泛化误差”的近似。显然：我们选取的测试集应尽可能与训练集互斥，下面用一个小故事来解释why：</p>
+<p>假设老师出了10 道习题供同学们练习，考试时老师又用同样的这10道题作为试题，可能有的童鞋只会做这10 道题却能得高分，很明显：这个考试成绩并不能有效地反映出真实水平。回到我们的问题上来，我们希望得到泛化性能好的模型，好比希望同学们课程学得好并获得了对所学知识”举一反三”的能力；训练样本相当于给同学们练习的习题，测试过程则相当于考试。显然，若测试样本被用作训练了，则得到的将是过于”乐观”的估计结果。</p>
+<h4 id="2-2-1-训练集与测试集的划分方法"><a href="#2-2-1-训练集与测试集的划分方法" class="headerlink" title="2.2.1 训练集与测试集的划分方法"></a>2.2.1 训练集与测试集的划分方法</h4><p>如上所述：我们希望用一个“测试集”的“测试误差”来作为“泛化误差”的近似，因此我们需要对初始数据集进行有效划分，划分出互斥的“训练集”和“测试集”。下面介绍几种常用的划分方法：</p>
+<p><strong>留出法 （Hold-out）</strong></p>
+<p>将数据集D划分为两个互斥的集合，一个作为训练集S，一个作为测试集T，满足D=S∪T且S∩T=∅，常见的划分为：大约2/3-4/5的样本用作训练，剩下的用作测试。需要注意的是：训练/测试集的划分要尽可能保持数据分布的一致性，以避免由于分布的差异引入额外的偏差，常见的做法是采取分层抽样（stratified sampling）保持S与T内的样本各个类别的比例和原分布相似。同时，由于划分的随机性，单次的留出法结果往往不够稳定，一般要采用若干次随机划分，重复实验取平均值的做法。</p>
+<p><em>案例代码: 利用sklearn的train_test_split函数进行数据集划分(基于留出法的原理)</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;载入数据&#x27;&#x27;&#x27;</span></span><br><span class="line">X,y = datasets.load_iris(return_X_y=<span class="literal">True</span>)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;采取分层抽样时的数据集分割&#x27;&#x27;&#x27;</span></span><br><span class="line">X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=<span class="number">0.3</span>,stratify=y)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;打印各个数据集的形状&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(X_train.shape,X_test.shape,y_train.shape,y_test.shape)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;打印训练集中因变量的各类别数目情况&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(pd.value_counts(y_train))</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;打印验证集集中因变量的各类别数目情况&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(pd.value_counts(y_test))</span><br><span class="line"></span><br></pre></td></tr></table></figure><br><strong>交叉验证法</strong><br>将数据集D划分为k个大小相同的互斥子集，满足D=D1∪D2∪…∪Dk，Di∩Dj=∅（i≠j），同样地尽可能保持数据分布的一致性，即采用分层抽样的方法获得这些子集。交叉验证法的思想是：<strong>每次用k-1个子集的并集作为训练集，余下的那个子集作为测试集</strong>，这样就有K种训练集/测试集划分的情况，从而可进行k次训练和测试，最终返回k次测试结果的均值。交叉验证法也称“k折交叉验证”，k最常用的取值是10，下图给出了10折交叉验证的示意图。</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/k-flod.png" class="" title="This is the 10-flod img">
+<p><em>利用sklearn的KFold函数划分数据集：</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">X = np.random.randint(<span class="number">1</span>,<span class="number">10</span>,<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">kf = KFold(n_splits=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> train,test <span class="keyword">in</span> kf.split(X):</span><br><span class="line">    <span class="built_in">print</span>(train,<span class="string">&#x27;\n&#x27;</span>,test)</span><br><span class="line">    </span><br></pre></td></tr></table></figure><br>与留出法类似，将数据集D划分为K个子集的过程具有随机性，因此K折交叉验证通常也要重复p次，称为p次k折交叉验证，常见的是10次10折交叉验证，即进行了100次训练/测试。特殊地当划分的k个子集的每个子集中只有一个样本时，称为“留一法”，显然，留一法的评估结果比较准确，但对计算机的消耗也是巨大的。</p>
+<p><em>利用sklearn的LeaveOneOut函数划分数据集：</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> LeaveOneOut</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">X = np.random.randint(<span class="number">1</span>,<span class="number">10</span>,<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">kf = LeaveOneOut()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> train,test <span class="keyword">in</span> kf.split(X):</span><br><span class="line">    <span class="built_in">print</span>(train,<span class="string">&#x27;\n&#x27;</span>,test)</span><br></pre></td></tr></table></figure></p>
+<p><strong>自助法</strong></p>
+<p>我们希望评估的是用整个D训练出的模型。但在留出法和交叉验证法中，由于保留了一部分样本用于测试，因此实际评估的模型所使用的训练集比D小，这必然会引入一些因训练样本规模不同而导致的估计偏差。留一法受训练样本规模变化的影响较小，但计算复杂度又太高了。“自助法”正是解决了这样的问题。</p>
+<p>自助法的基本思想是：给定包含m个样本的数据集D，每次随机从D 中挑选一个样本，将其拷贝放入D’，然后再将该样本放回初始数据集D 中，使得该样本在下次采样时仍有可能被采到。重复执行m 次，就可以得到了包含m个样本的数据集D’。可以得知在m次采样中，样本始终不被采到的概率取极限为：</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/gongshi.png" class="" title="This is the gongshi img">
+<p>这样，通过自助采样，初始样本集D中大约有36.8%的样本没有出现在D’中，于是可以将D’作为训练集，D-D’作为测试集。自助法在数据集较小，难以有效划分训练集/测试集时很有用，但由于自助法产生的数据集（随机抽样）改变了初始数据集的分布，因此引入了估计偏差。在初始数据集足够时，留出法和交叉验证法更加常用。</p>
+<p><em>自助法-数据集划分</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机产生我们的数据集</span></span><br><span class="line">x = np.random.randint(-<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>)  <span class="comment"># 前两个参数表示范围，第三个参数表示个数</span></span><br><span class="line">index = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x))]   <span class="comment"># 数据集的下标</span></span><br><span class="line">train_set = []  <span class="comment"># 训练集</span></span><br><span class="line">train_index = []  <span class="comment"># 用于记录训练集各个元素的下标</span></span><br><span class="line">test_set = []  <span class="comment"># 测试集</span></span><br><span class="line">test_index = []  <span class="comment"># 用于记录测试集各个元素的下标</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行m次放回抽样</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">    train_index.append(np.floor(np.random.random()*<span class="built_in">len</span>(x)))</span><br><span class="line"><span class="comment"># 计算D\D&#x27;</span></span><br><span class="line">test_index = <span class="built_in">list</span>(<span class="built_in">set</span>(index).difference(<span class="built_in">set</span>(train_index)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取数，产生训练/测试集</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(train_index)):</span><br><span class="line">    train_set.append(x[<span class="built_in">int</span>(train_index[i])])  <span class="comment"># 这里记得强制转换为int型，否则会报错</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(test_index)):</span><br><span class="line">    test_set.append(x[<span class="built_in">int</span>(test_index[i])])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印结果进行验证</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;data set: &quot;</span>, x)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;train set: &quot;</span>, train_set)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;test set: &quot;</span>, test_set)</span><br></pre></td></tr></table></figure></p>
+<p><strong>顺序约束采样</strong></p>
+<p>对于具有强顺序约束的序列（比如时间序列）的数据类型，前后相邻的数据关联程度很高，在数据分割时不能打乱顺序随机采样，即不能破坏序列的连续性。</p>
+<p><em>sklearn中提供了TimeSeriesSplit函数用于分割这种类型的数据</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> TimeSeriesSplit</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">X = np.random.randint(<span class="number">1</span>,<span class="number">10</span>,<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">kf = TimeSeriesSplit(n_splits=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> train,test <span class="keyword">in</span> kf.split(X):</span><br><span class="line">    <span class="built_in">print</span>(train,<span class="string">&#x27;\n&#x27;</span>,test)</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-2-2-调参"><a href="#2-2-2-调参" class="headerlink" title="2.2.2 调参"></a>2.2.2 调参</h4><p>常用的方法包括网格法，利用一定的步长在参数的值域范围内探索参数最优解，在开始的时候可以选择较大的步长，然后逐步缩小步长逼近最优解。</p>
+<p>将数据集划分为三个部分：训练集、验证集、测试集。将训练集数据用于模型训练，验证集（开发集）数据用于模型调参，测试集数据用于验证模型泛化性。</p>
+<p>给定包含个样本的数据集，在模型评估与选择过程中由于需要留出一部分数据进行评估测试，事实上我们只使用了一部分数据训练、模型。因此，在模型选择完成后，学习算法和参数配置己选定，此时应该用数据集重新训练模型。这个模型在训练过程中使用了所有个样本，这才是我们最终提交给用户的模型。</p>
+<h3 id="2-3-性能度量"><a href="#2-3-性能度量" class="headerlink" title="2.3 性能度量"></a>2.3 性能度量</h3><p>性能度量（performance measure）是衡量模型泛化能力的评价标准，在对比不同模型的能力时，使用不同的性能度量往往会导致不同的评判结果。</p>
+<p><strong>均方误差mean squared error MSE</strong></p>
+<p>在回归任务中，即预测连续值的问题，最常用的性能度量是“均方误差”（mean squared error）,很多的经典算法都是采用了MSE作为评价函数。</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/msq.png" class="" title="This is the msq img">
+<p><strong>错误率error rate和精度accuracy</strong></p>
+<p>在分类任务中，即预测离散值的问题，最常用的是错误率和精度，错误率是分类错误的样本数占样本总数的比例，精度则是分类正确的样本数占样本总数的比例，易知：错误率+精度=1。</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/accanderr.png" class="" title="This is the acc img">
+<p><strong>查准率（准确率precision）、查全率（召回率recall）、F1</strong></p>
+<p>错误率和精度虽然常用，但不能满足所有的需求，例如：在推荐系统中，我们只关心推送给用户的内容用户是否感兴趣（即查准率），或者说所有用户感兴趣的内容我们推送出来了多少（即查全率）。因此，使用查准/查全率更适合描述这类问题。对于二分类问题，分类结果混淆矩阵与查准/查全率定义如下：</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f1.png" class="" title="This is the f1 img">
+<p>FN与FP很难正确的理解，按照惯性思维容易把FN理解成：False-&gt;Negtive，即将错的预测为错的，这样FN和TN就反了，后来找到一张图，描述得很详细，为方便理解，把这张图也贴在了下边：</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/fnfp.png" class="" title="This is the fnfp img">
+<p>正如天下没有免费的午餐，查准率和查全率是一对矛盾的度量。例如我们想让推送的内容尽可能用户全都感兴趣，那只能推送我们把握高的内容，这样就漏掉了一些用户感兴趣的内容，查全率就低了；<br>如果想让用户感兴趣的内容都被推送，那只有将所有内容都推送上，宁可错杀一千，不可放过一个，这样查准率就很低了。</p>
+<p>“P-R曲线”正是描述查准/查全率变化的曲线，P-R曲线定义如下：根据学习器的预测结果（一般为一个实值或概率）对测试样本进行排序，将最可能是“正例”的样本排在前面，最不可能是“正例”的排在后面，按此顺序逐个把样本作为“正例”进行预测，每次计算出当前的P值和R值，如下图所示：</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/prrate.png" class="" title="This is the pr img">
+<p>P-R曲线如何评估呢？若一个学习器A的P-R曲线被另一个学习器B的P-R曲线完全包住，则称：B的性能优于A。若A和B的曲线发生了交叉，则谁的曲线下的面积大，谁的性能更优。<br>但一般来说，曲线下的面积是很难进行估算的，所以衍生出了“平衡点”（Break-Event Point，简称BEP），即当P=R时的取值，平衡点的取值越高，性能更优。</p>
+<p>P和R指标有时会出现矛盾的情况，这样就需要综合考虑他们，最常见的方法就是F-Measure，又称F-Score。F-Measure是P和R的加权调和平均，即：</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/jiaquanpingjun.png" class="" title="This is the jiaquan img">
+
+<p>特别地，当β=1时，也就是常见的F1度量，是P和R的调和平均，当F1较高时，模型的性能越好</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f11.png" class="" title="This is the f11 img">
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/f12.png" class="" title="This is the f12 img">
+<p>有时候我们会有多个二分类混淆矩阵，例如：多次训练或者在多个数据集上训练，那么估算全局性能的方法有两种，分为宏观和微观。<br>简单理解，宏观就是先算出每个混淆矩阵的P值和R值，然后取得平均P值macro-P和平均R值macro-R，在算出Fβ或F1，而微观则是计算出混淆矩阵的平均TP、FP、TN、FN，接着进行计算P、R，进而求出Fβ或F1。</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/microf1.png" class="" title="This is the micro img">
+<p><strong>ROC与AUC</strong></p>
+<p>学习器对测试样本的评估结果一般为一个实值或概率，设定一个阈值(threshold)，大于阈值为正例，小于阈值为负例，因此这个实值的好坏直接决定了学习器的泛化性能，若将这些实值排序，则排序的好坏决定了学习器的性能高低。ROC曲线正是从这个角度出发来研究学习器的泛化性能，ROC曲线与P-R曲线十分类似，都是按照排序的顺序逐一按照正例预测，不同的是ROC曲线以“真正例率”（True Positive Rate，简称TPR）为横轴，纵轴为“假正例率”（False Positive Rate，简称FPR），ROC偏重研究基于测试样本评估值的排序好坏。</p>
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/tprfpr.png" class="" title="This is the tpr img">
+<img src="/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/rocauc.png" class="" title="This is the roc img">
+<p>简单分析图像，可以得知：当FN=0时，TN也必须0，反之也成立，我们可以画一个队列，试着使用不同的截断点（即阈值）去分割队列，来分析曲线的形状，（0,0）表示将所有的样本预测为负例，（1,1）则表示将所有的样本预测为正例，（0,1）表示正例全部出现在负例之前的理想情况，（1,0）则表示负例全部出现在正例之前的最差情况。</p>
+<p>现实中的任务通常都是有限个测试样本，因此只能绘制出近似ROC曲线。</p>
+<p>同样地，进行模型的性能比较时，若一个学习器A的ROC曲线被另一个学习器B的ROC曲线完全包住，则称B的性能优于A。若A和B的曲线发生了交叉，则谁的曲线下的面积大，谁的性能更优。<br>ROC曲线下的面积定义为AUC（Area Uder ROC Curve），不同于P-R的是，这里的AUC是可估算的，即AOC曲线下每一个小矩形的面积之和。<br>易知：AUC越大，证明排序的质量越好，AUC为1时，证明所有正例排在了负例的前面，AUC为0时，所有的负例排在了正例的前面。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc71ed6e2c57.png" alt="15.png"></p>
+<p><strong>2.5.4 代价敏感错误率与代价曲线</strong></p>
+<p>上面的方法中，将学习器的犯错同等对待，但在现实生活中，将正例预测成假例与将假例预测成正例的代价常常是不一样的，例如：将无疾病—&gt;有疾病只是增多了检查，但有疾病—&gt;无疾病却是增加了生命危险。以二分类为例，由此引入了“代价矩阵”（cost matrix）。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc71ed6ed582.png" alt="16.png"></p>
+<p>在非均等错误代价下，我们希望的是最小化“总体代价”，这样“代价敏感”的错误率为：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc71ed70bebe.png" alt="17.png"></p>
+<p>同样对于ROC曲线，在非均等错误代价下，演变成了“代价曲线”，代价曲线横轴是取值在[0,1]之间的正例概率代价，式中p表示正例的概率，纵轴是取值为[0,1]的归一化代价。</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc71ed6e952e.png" alt="18.png"></p>
+<p><img src="https://i.loli.net/2018/10/17/5bc71ed6eee7b.png" alt="19.png"></p>
+<p>代价曲线的绘制很简单：设ROC曲线上一点的坐标为(TPR，FPR) ，则可相应计算出FNR，然后在代价平面上绘制一条从(0，FPR) 到(1，FNR) 的线段，线段下的面积即表示了该条件下的期望总体代价；如此将ROC 曲线土的每个点转化为代价平面上的一条线段，然后取所有线段的下界，围成的面积即为在所有条件下学习器的期望总体代价，如图所示：</p>
+<p><img src="https://i.loli.net/2018/10/17/5bc71ed716e0d.png" alt="20.png"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://allen123321.github.io/2021/08/05/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC2%E7%AB%A0/" title="西瓜书第2章" target="_blank" rel="external">https://allen123321.github.io/2021/08/05/西瓜书第2章/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/Allen123321" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/Allen123321" target="_blank"><span class="text-dark">Dr.Xu</span><small class="ml-1x">Research assistant</small></a></h3>
+        <div>Zero To One</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/08/06/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC3%E7%AB%A0/" title="西瓜书第3章"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/08/04/%E8%A5%BF%E7%93%9C%E4%B9%A6%E7%AC%AC1%E7%AB%A0/" title="西瓜书第1章"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">
+        <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.jpg" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.jpg" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Allen123321" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/Allenxu93060942/" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.facebook.com/profile.php?id=100022536340286" target="_blank" title="Facebook" data-toggle=tooltip data-placement=top><i class="icon icon-facebook"></i></a></li>
+        
+        <li><a href="https://www.behance.net/" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'DumdnDs2wwYbUEgmpupNXEJk-MdYXbMMI',
+    appKey: 'PVRNqheXkLcupo4SohVuAXUr',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'false',
+    requiredFields: requiredFields,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

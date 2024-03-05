@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://allen123321.github.io/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3%E5%BC%80%E6%BA%90%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</loc>
+    
+    <lastmod>2024-03-05</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://allen123321.github.io/2021/11/05/mysql/</loc>
     
     <lastmod>2021-11-05</lastmod>
@@ -144,14 +151,14 @@
   </url>
   
   <url>
-    <loc>https://allen123321.github.io/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/</loc>
+    <loc>https://allen123321.github.io/tags/PyQt5/</loc>
     <lastmod>2024-03-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://allen123321.github.io/tags/PyQt5/</loc>
+    <loc>https://allen123321.github.io/tags/%E6%9D%8E%E5%AE%8F%E6%AF%85/</loc>
     <lastmod>2024-03-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -166,6 +173,13 @@
   
   <url>
     <loc>https://allen123321.github.io/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2024-03-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://allen123321.github.io/tags/OpenEducationalResources/</loc>
     <lastmod>2024-03-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -189,6 +203,13 @@
   
   <url>
     <loc>https://allen123321.github.io/categories/Deep-learning/</loc>
+    <lastmod>2024-03-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://allen123321.github.io/categories/OER/</loc>
     <lastmod>2024-03-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

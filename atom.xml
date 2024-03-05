@@ -6,7 +6,7 @@
   <link href="https://allen123321.github.io/atom.xml" rel="self"/>
   
   <link href="https://allen123321.github.io/"/>
-  <updated>2021-11-05T18:57:08.298Z</updated>
+  <updated>2024-03-05T15:12:49.770Z</updated>
   <id>https://allen123321.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>计算机相关开源学习资源</title>
+    <link href="https://allen123321.github.io/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3%E5%BC%80%E6%BA%90%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/"/>
+    <id>https://allen123321.github.io/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3%E5%BC%80%E6%BA%90%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</id>
+    <published>2024-03-05T14:18:56.000Z</published>
+    <updated>2024-03-05T15:12:49.770Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="开源学习资源"><a href="#开源学习资源" class="headerlink" title="开源学习资源"></a>开源学习资源</h2><p>计算机相关专业的开源学习资源(持续更新中…)</p><h3 id="1-计算机科学基础"><a href="#1-计算机科学基础" class="headerlink" title="1. 计算机科学基础"></a>1. <strong>计算机科学基础</strong></h3><ul><li><p>计算机组成原理：解计算机的基本结构和工作原理</p></li><li><p>操作系统：学习计算机系统的管理和资源分配<br><a href="https://101.lug.ustc.edu.cn/">Linux 101</a></p></li><li><p>数据结构与算法：掌握各种数据结构的原理和算法设计技巧<br><a href="https://www.hello-algo.com/">Hello 算法</a></p></li><li><p>计算机网络基础：了解网络的基本概念、协议和网络编程。<br><a href="https://www.bilibili.com/video/BV1JV411t7ow/?spm_id_from=333.999.0.0">中科大郑烇、杨坚 计算机网络（自顶向下方法 第7版)</a></p></li></ul><h3 id="2-编程语言"><a href="#2-编程语言" class="headerlink" title="2. 编程语言"></a>2. <strong>编程语言</strong></h3><ul><li>C/C++：学习编程基础和面向对象的编程思想。<br><a href="https://www.bilibili.com/video/BV1et411b73Z/?vd_source=d9bd1728c28881103eedf06025c6f11f">B站视频:”黑马程序员匠心之作|C++教程从0到1入门编程”</a></li><li>Java：掌握跨平台的应用开发。</li><li>Python：学习用于数据分析、机器学习等领域的高级编程语言。<br><a href="https://github.com/jackfrued/Python-100-Days">Python 100 days</a></li><li>Web开发（HTML, CSS, JavaScript）：了解网页制作和前端开发技术。</li></ul><h3 id="3-软件工程"><a href="#3-软件工程" class="headerlink" title="3. 软件工程"></a>3. <strong>软件工程</strong></h3><ul><li>软件工程基础：学习软件开发的生命周期、项目管理等。</li><li>设计模式：掌握常用的软件设计模式。</li><li>版本控制系统：了解如何使用Git等工具进行代码管理。</li><li>容器化技术：了解容器化的基本原理<br><a href="https://docker-practice.github.io/zh-cn/">Docker — 从入门到实践</a></li></ul><h3 id="4-数据库技术"><a href="#4-数据库技术" class="headerlink" title="4. 数据库技术"></a>4. <strong>数据库技术</strong></h3><ul><li>数据库原理：学习数据库设计、SQL语言等。</li><li>数据库管理系统：掌握MySQL、Oracle、SQL Server等常用数据库的应用。</li></ul><h3 id="5-人工智能与机器学习"><a href="#5-人工智能与机器学习" class="headerlink" title="5. 人工智能与机器学习"></a>5. <strong>人工智能与机器学习</strong></h3><ul><li>数学基础<br><a href="https://github.com/yhwu-is/Linear-Algebra-Left-Undone">线性代数</a></li><li>人工智能基础：了解AI的基本概念和应用。</li><li><p>机器学习：学习算法模型和数据处理技术。<br><a href="https://github.com/datawhalechina/pumpkin-book">西瓜书</a></p></li><li><p>深度学习：掌握深度神经网络等先进技术。<br><a href="https://github.com/datawhalechina/leedl-tutorial">李宏毅深度学习教程</a><br><a href="https://zh.d2l.ai/">动手学深度学习</a><br><a href="https://github.com/deep-learning-with-pytorch/dlwpt-code">Deep Learning with PyTorch</a></p></li></ul><h3 id="6-安全与隐私"><a href="#6-安全与隐私" class="headerlink" title="6. 安全与隐私"></a>6. <strong>安全与隐私</strong></h3><ul><li>计算机安全：了解网络安全、系统安全的基本知识和防护措施。</li><li>加密技术：学习数据加密和安全传输的方法。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;开源学习资源&quot;&gt;&lt;a href=&quot;#开源学习资源&quot; class=&quot;headerlink&quot; title=&quot;开源学习资源&quot;&gt;&lt;/a&gt;开源学习资源&lt;/h2&gt;&lt;p&gt;计算机相关专业的开源学习资源(持续更新中…)&lt;/p&gt;
+&lt;h3 id=&quot;1-计算机科学基础&quot;&gt;&lt;a href=</summary>
+      
+    
+    
+    
+    <category term="OER" scheme="https://allen123321.github.io/categories/OER/"/>
+    
+    
+    <category term="OpenEducationalResources" scheme="https://allen123321.github.io/tags/OpenEducationalResources/"/>
+    
+  </entry>
   
   <entry>
     <title>mysql mac M1 安装配置和简单命令</title>
